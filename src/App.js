@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Main from "./pages/main";
 import Login from "./pages/login"
 import NewPost from "./pages/post";
+import "./App.css";
 
 function App() {
   return (
