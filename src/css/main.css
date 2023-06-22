@@ -1,0 +1,12 @@
+.header {
+    text-align: center;
+    padding: 10%;
+}
+
+.recent-posts {
+    margin-top: 50px;
+}
+
+.recent-posts h1 {
+    text-indent: 20px;
+}
