@@ -1,0 +1,185 @@
+.post-container {
+    padding: 10%;
+    display: flex;
+    justify-content: center; 
+}
+
+.post-form {
+    width: 50%;
+    box-shadow: 5px 5px 20px rgb(112, 111, 111);
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 30px;
+    border-radius: 1em;
+    animation-name: form-animation;
+    animation-duration: 0.5s;
+}
+
+.post-header {
+    text-align: center;
+}
+
+.post-body {
+    text-align: left;
+}
+
+.post-body input {
+    width: 100%;
+    padding: 10px;
+    font-size: large;
+    width: 95%;
+    border-radius: 0.5em;
+    border: solid black;
+    border-width: 1px;
+}
+
+.post-body textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: large;
+    width: 95%;
+    border-radius: 0.5em;
+    border: solid black;
+    border-width: 1px;
+    height: 500px;
+    resize: unset;
+}
+
+.post-body select {
+    padding: 10px;
+    border-radius: 0.5em;
+}
+
+.post-body button{
+    margin-top: 20px;
+    background: rgb(156,14,219);
+    background: linear-gradient(90deg, rgba(156,14,219,1) 21%, rgba(255,0,183,1) 100%);
+    color: white;
+    border: none;
+    border-radius: 1em;
+    font-size: x-large;
+    padding: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+    opacity: 1;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.post-body button:hover {
+    background: rgb(156,14,219);
+    background: linear-gradient(90deg, rgba(156,14,219,1) 21%, rgba(255,0,183,1) 100%);
+    color: white;
+    border: none;
+    border-radius: 1em;
+    font-size: x-large;
+    padding: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+    opacity: 0.60;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.post-body button:active {
+    background: rgb(156,14,219);
+    background: linear-gradient(90deg, rgba(156,14,219,1) 21%, rgba(255,0,183,1) 100%);
+    color: white;
+    border: none;
+    border-radius: 1em;
+    font-size: x-large;
+    padding: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+    opacity: 0.60;
+    transition: 0.3s;
+    transform: scale(0.90);
+    font-weight: bold;
+}
+
+@keyframes panel-animation {
+    0% {
+        transform: scale(0.60);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes form-animation {
+    0% { 
+        transform: translateY(300px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.sign-in-panel-show {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.432);
+    z-index: 999;
+}
+  
+.panel-show {
+    background-color: white;
+    box-shadow: 5px 5px 10px rgb(48, 48, 48);
+    width: max-content;
+    border-radius: 0.5em;
+    text-align: center;
+    padding: 20px;
+    animation-name: panel-animation;
+    animation-duration: 0.5s;
+}
+
+.panel-show button {
+    padding: 10px;
+    border-radius: 0.5em;
+    border: none;
+    background: rgb(14,219,143);
+    background: linear-gradient(90deg, rgba(14,219,143,1) 0%, rgba(0,212,255,1) 100%);
+    color: white;
+    font-weight: bold;
+    font-size: large;
+    transform: scale(1);
+    transition: 0.3s;
+}
+
+.panel-show button:hover {
+    padding: 10px;
+    border-radius: 0.5em;
+    border: none;
+    background: rgb(14,219,143);
+    background: linear-gradient(90deg, rgba(14,219,143,1) 0%, rgba(0,212,255,1) 100%);
+    color: white;
+    font-weight: bold;
+    font-size: large;
+    transform: scale(1);
+    transition: 0.3s;
+    opacity: 0.5;
+}
+
+.panel-show button:active {
+    padding: 10px;
+    border-radius: 0.5em;
+    border: none;
+    background: rgb(14,219,143);
+    background: linear-gradient(90deg, rgba(14,219,143,1) 0%, rgba(0,212,255,1) 100%);
+    color: white;
+    font-weight: bold;
+    font-size: large;
+    transform: scale(0.90);
+    transition: 0.3s;
+}
+
+.sign-in-panel-hide {
+    display: none;
+}

@@ -6,6 +6,7 @@ nav {
     background-color: white;
     box-shadow: 5px 5px 20px rgb(160, 160, 160);
     margin: auto;
+    z-index: 998;
 }
 
 .topnav-logo img {
@@ -40,6 +41,19 @@ nav {
 }
 
 .topnav-search:hover {
+    background-color: rgb(233, 232, 232);
+    border-radius: 1em;
+    height: min-content;
+    margin: auto;
+    padding: 5px;
+    display: flex;
+    width: 50%;
+    box-shadow: 3px 3px 10px rgb(201, 201, 201);
+    border: 1px solid black;
+    transition: 0.3s;
+}
+
+.topnav-search input:focus + .topnav-search {
     background-color: rgb(233, 232, 232);
     border-radius: 1em;
     height: min-content;

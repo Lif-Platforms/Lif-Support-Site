@@ -31,7 +31,10 @@ export function User_Login(username, password) {
         if (message.startsWith('TOKEN:')) { 
             var token = message.slice(6);
 
-            document.cookie = `name=LIF_TOKEN; value=${token}; path=/`;
+            console.log("Token: " + token);
+
+            document.cookie = "LIF_TOKEN=" + token;
+            document.cookie = "LIF_USERNAME=" + username;
             socket.close();
             resolve("GOOD!");
         }

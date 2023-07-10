@@ -1,0 +1,63 @@
+.search-page {
+    padding-top: 10%;
+}
+
+.search-query {
+    padding-left: 20px;
+}
+
+.search-results {
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.search-item {
+    text-align: left;
+    background-color: rgb(230, 227, 227);
+    border: solid transparent 1px;
+    border-radius: 1em;
+    width: 90%;  /* Adjust the width value as needed */
+    margin: 0 auto;  /* Center the search items horizontally */
+    padding: 20px;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+.search-item:hover {
+    text-align: left;
+    background-color: white;
+    border: solid black 1px;
+    border-radius: 1em;
+    width: 90%;  /* Adjust the width value as needed */
+    margin: 0 auto;  /* Center the search items horizontally */
+    padding: 20px;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+.software {
+    padding: 5px;
+    background-color: white;
+    box-shadow: 1px 1px 5px gray;
+    border-radius: 0.5em;
+    font-weight: bold;
+}
+
+.ringer-software {
+    padding: 5px;
+    background-color: orange;
+    box-shadow: 1px 1px 5px gray;
+    border-radius: 0.5em;
+    font-weight: bold;
+    color: white;
+}
+
+.dayly-software {
+    padding: 5px;
+    background-color: rgb(0, 174, 255);
+    box-shadow: 1px 1px 5px gray;
+    border-radius: 0.5em;
+    font-weight: bold;
+    color: white;
+}
