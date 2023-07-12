@@ -111,10 +111,13 @@ function NewPost() {
                     </div>
                     <div className="post-body">
                         <h2>Title</h2>
+                        <p>What should we title your post.</p>
                         <input type="text" id="title" placeholder="Example Title" />
                         <h2>Body</h2>
+                        <p>What are you posting about? Give a detailed description of your issue.</p>
                         <textarea placeholder="Body Text..." id="body" />
                         <h2>Software</h2>
+                        <p>What software are you posting about.</p>
                         <select name="Software" id="software"> 
                             <option value="Ringer">Ringer</option> 
                             <option value="Dayly">Dayly</option> 

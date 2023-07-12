@@ -42,6 +42,7 @@
     border-width: 1px;
     height: 500px;
     resize: unset;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .post-body select {

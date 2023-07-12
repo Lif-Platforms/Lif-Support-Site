@@ -1,0 +1,91 @@
+.post-view-container {
+    padding-top: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.post-loading {
+    text-align: center;
+}
+
+.post-loaded {
+    text-align: left;
+}
+
+.post-view-header {
+    border-radius: 1em;
+    border: 1px solid black;
+    box-shadow: 10px 10px 20px rgb(189, 189, 189);
+    width: 90%;
+    padding: 20px;
+    position: relative;
+}
+
+.software {
+    padding: 5px;
+    background-color: white;
+    box-shadow: 1px 1px 5px gray;
+    border-radius: 0.5em;
+    font-weight: bold;
+}
+
+.ringer-software {
+    padding: 5px;
+    background-color: orange;
+    box-shadow: 1px 1px 5px gray;
+    border-radius: 0.5em;
+    font-weight: bold;
+    color: white;
+}
+
+.dayly-software {
+    padding: 5px;
+    background-color: rgb(0, 174, 255);
+    box-shadow: 1px 1px 5px gray;
+    border-radius: 0.5em;
+    font-weight: bold;
+    color: white;
+}
+
+.controls {
+    background-color: rgb(231, 231, 231);
+    border-radius: 0.5em;
+    text-align: right;
+    margin-top: 15px;
+    padding: 10px;
+}
+
+.controls button {
+    background: rgb(156,14,219);
+    background: linear-gradient(90deg, rgba(156,14,219,1) 21%, rgba(255,0,183,1) 100%);
+    color: white;
+    border: none;
+    border-radius: 1em;
+    font-size: medium;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    opacity: 1;
+    transition: 0.3s;
+    font-weight: bold;
+    margin-left: 10px;
+    transition: 0.2s ease-in-out;
+}
+
+.controls button:hover {
+    opacity: 0.5;
+}
+
+.controls button:active {
+    opacity: 0.5;
+    transform: scale(0.90);
+}
+
+.post-author-img {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 30px;
+    border-radius: 50%;
+    border: 3px solid rgb(177, 176, 176);
+}

@@ -47,7 +47,7 @@ function SearchResults() {
         return(
             <div className="search-results">
                 {resultsState.map(item => (
-                    <a href="#placeholder">
+                    <a href={`/view_post/${item.Id}`}>
                         <div className="search-item">
                             <h1>{item.Title}</h1>
                             <p>{item.Content}</p>
