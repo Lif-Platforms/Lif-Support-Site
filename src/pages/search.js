@@ -35,7 +35,7 @@ function SearchResults() {
         }
         get_results();
     // eslint-disable-next-line
-    }, [])
+    }, [query])
 
     if (resultsState === "loading") {
         return(

@@ -42,7 +42,42 @@ function Writer({ state, setState }) {
             console.log(data);
 
             if (data.Status === "Ok") {
-                setState('closed');
+                window.location.reload();
+            }
+        })
+        .catch(error => {
+            // Handle any errors
+            console.error(error);
+        });
+    }
+
+    async function handle_answer() {
+        // Update post button status
+        document.getElementById('writer-post').innerHTML = "Posting...";
+        document.getElementById('writer-post').disabled = true;
+
+        // Gets auth information
+        const username = await getCookieValue();
+        const token = await get_token();
+
+        // Gets answer
+        const answer = document.getElementById('answer').value; 
+    
+        const formData = new FormData();
+        formData.append("answer", answer);
+        formData.append("post_id", post_id);
+
+        fetch(`http://localhost:8003/new_answer/${username}/${token}`, {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Handle the response data
+            console.log(data);
+
+            if (data.Status === "Ok") {
+                window.location.reload();
             }
         })
         .catch(error => {
@@ -65,7 +100,7 @@ function Writer({ state, setState }) {
             <div className="post-writer">
                 <h1>Post Your Answer</h1>
                 <textarea placeholder="Answer..." id="answer" />
-                <button className="writer-post-button" id="writer-post">Post</button>
+                <button className="writer-post-button" id="writer-post" onClick={handle_answer}>Post</button>
                 <button className="writer-close-btn" onClick={handle_close}>&#10006;</button>
             </div>
         )
@@ -127,7 +162,7 @@ function Post() {
         return(
             <div className="post-view-header post-loaded">
                 <h1>{postState.Title}</h1>
-                <p>{postState.Content}</p>
+                <p style={{ whiteSpace: 'pre-line' }}>{postState.Content}</p>
                 <span className={postState.Software === "Ringer" ? "ringer-software" : postState.Software === "Dayly" ? "dayly-software" : "software"}>{postState.Software}</span>
                 <div className="controls">
                     <button onClick={handle_comment_open}>Comment</button>
@@ -148,11 +183,77 @@ function Post() {
 }
 
 function Comments() {
-    return(
-        <div className="comments-viewer">
-            <h1>Comments:</h1>
-        </div>
-    )
+    const [commentsState, setCommentsState] = useState('loading');
+    
+    // Retrieve the post id parameter from the URL
+    const { post_id } = useParams();
+
+    useEffect(() => {
+        fetch('http://localhost:8003/load_comments/' + post_id)
+        .then(response => {
+            if (response.ok) {
+            return response.json(); // Convert response to JSON
+            } else {
+            throw new Error('Request failed with status code: ' + response.status);
+            }
+        })
+        .then(data => {
+            // Work with the data
+            console.log(data);
+
+            if (data === false) {
+                setCommentsState('404');
+            } else {
+                setCommentsState(data);
+            }
+        })
+        .catch(error => {
+            // Handle any errors
+            console.error(error);
+        });
+    // eslint-disable-next-line
+    }, [])
+
+    if (commentsState === "loading") {
+        return(
+            <div className="comments-viewer comment-center">
+                <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
+            </div>
+        )
+    } else if (Array.isArray(commentsState) && commentsState.length > 0) {
+        return(
+            <div className="comments-viewer comment-left">
+                <h1>Comments:</h1>
+                {commentsState.map(item => (
+                    (item.Type === "Comment" ? 
+                        <div className="comment">
+                            <img src={`http://localhost:8002/get_pfp/${item.Author}.png`} alt="" />
+                            <div>
+                                <h1>{item.Author}</h1>
+                                <p>{item.Content}</p>
+                            </div> 
+                        </div>
+                    : 
+                        <div className="answer">
+                            <h1>Answer</h1>
+                            <p style={{ whiteSpace: 'pre-line' }}>{item.Content}</p>
+                            <span>Posted By: {item.Author}</span>
+                            <img src={`http://localhost:8002/get_pfp/${item.Author}.png`} alt="" />
+                        </div>
+                    )
+                ))}
+            </div>
+        )
+    }  else if (commentsState === "404") {
+        return null;
+
+    } else if (Array.isArray(commentsState) && commentsState.length === 0) {
+        return(
+            <div className="comments-viewer comment-center">
+                <p>WOW! Nobody commented yet!</p>
+            </div>
+        ) 
+    }
 }
 
 function ViewPost() {

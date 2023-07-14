@@ -76,27 +76,35 @@ function NewPost() {
         const software_input = document.getElementById('software');
         const software = software_input.value;
 
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("content", body);
+        formData.append("software", software);
+
         // Makes the request to the server
-        fetch('http://localhost:8003/new_post/' + username + '/' + token + '/' + title + '/' + body + '/' + software)
-            .then(response => {
-                if (response.ok) {
-                return response.json(); // Convert response to JSON
-                } else {
-                throw new Error('Request failed with status code: ' + response.status);
-                }
-            })
-            .then(data => {
-                // Work with the data
-                console.log(data);
-                if (data['Status'] === "Ok"){
-                    // Changes the status of the post button
-                    post_button.innerHTML = "Done!";
-                }  
-            })
-            .catch(error => {
-                // Handle any errors
-                console.error(error);
-            });
+        fetch(`http://localhost:8003/new_post/${username}/${token}`, {
+            method: "POST",
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+            return response.json(); // Convert response to JSON
+            } else {
+            throw new Error('Request failed with status code: ' + response.status);
+            }
+        })
+        .then(data => {
+            // Work with the data
+            console.log(data);
+            if (data['Status'] === "Ok"){
+                // Changes the status of the post button
+                post_button.innerHTML = "Done!";
+            }  
+        })
+        .catch(error => {
+            // Handle any errors
+            console.error(error);
+        });
         }
 
     return(
