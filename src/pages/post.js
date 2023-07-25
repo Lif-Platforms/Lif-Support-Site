@@ -39,6 +39,7 @@ function SignIn({showSignIn}) {
 
 function NewPost() {
     const [showSignIn, setShowSignIn] = useState(false);
+    const navigate = useNavigate();
 
     // Checks if the use is singed in
     useEffect(() => {
@@ -99,6 +100,11 @@ function NewPost() {
             if (data['Status'] === "Ok"){
                 // Changes the status of the post button
                 post_button.innerHTML = "Done!";
+
+                // Navigates to the users post
+                setTimeout(() => {
+                    navigate(`/view_post/${data.post_id}`);
+                }, 2000); 
             }  
         })
         .catch(error => {

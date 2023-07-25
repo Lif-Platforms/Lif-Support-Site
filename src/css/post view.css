@@ -90,6 +90,7 @@
     width: 30px;
     border-radius: 50%;
     border: 3px solid rgb(177, 176, 176);
+    cursor: pointer;
 }
 
 .post-writer {
@@ -194,6 +195,7 @@
     border-radius: 50%;
     margin-top: auto;
     margin-bottom: auto;
+    border: 3px solid white;
 }
 
 .comment div {
@@ -227,6 +229,22 @@
     width: 30px;
     border-radius: 50%;
     border: solid rgb(187, 187, 187) 3px;
+}
+
+.post-author {
+    display: none;
+    position: absolute;
+    background-color: black;
+    border-radius: 0.5em;
+    color: white;
+    padding: 5px;
+    font-weight: bold;
+    top: 65px;
+    right: 0;
+}
+
+.post-view-header img:hover + .post-author {
+    display: block;
 }
 
 .comment-center {

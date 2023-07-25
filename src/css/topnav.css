@@ -19,6 +19,11 @@ nav {
     margin-bottom: auto;
     margin-right: 50px;
     margin-left: 50px;
+    position: relative;
+}
+
+.topnav-account img:hover {
+    transform: scale(1.1);
 }
 
 .topnav-account img {
@@ -26,6 +31,7 @@ nav {
     border-radius: 50%;
     border: solid rgb(170, 170, 170);
     border-width: 3px;
+    transition: ease-in-out 0.2s;
 }
 
 .topnav-search {
@@ -124,4 +130,82 @@ nav {
     transition: 0.3s;
     transform: scale(0.90);
     font-weight: bold;
+}
+
+.account-panel {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: white;
+    border-radius: 1em;
+    box-shadow: 10px 10px 20px rgb(196, 196, 196);
+    padding: 20px;
+    border: solid black 1px;
+    animation-name: account-panel-animation;
+    animation-duration: 0.3s;
+    height: max-content;
+    min-width: 200px;
+}
+
+.account-panel h1 {
+    margin: 0;
+    padding-left: 10px;
+}
+
+.account-panel a {
+    background-color: rgb(230, 230, 230);
+    padding: 10px;
+    border-radius: 1.5em;
+    display: block; /* Make the links block-level elements */
+    margin-bottom: 5px; /* Add margin-bottom for spacing */
+    width: 90%;
+    text-align: center; /* Center the link text */
+    transition: 0.3s ease-in-out;
+    border: solid rgb(230, 230, 230) 1px;
+    cursor: pointer;
+}
+
+.account-panel a:hover {
+    background-color: white;
+    border: solid black 1px;
+}
+
+.account-panel-header {
+    display: flex;
+    align-items: center; /* Vertically align the header content */
+    margin-bottom: 10px; /* Add margin-bottom for spacing */
+}
+
+@keyframes account-panel-animation {
+    0% {
+        transform: translateY(-40px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+.sign-in-button {
+    background: rgb(14,219,143);
+    background: linear-gradient(90deg, rgba(14,219,143,1) 0%, rgba(0,212,255,1) 100%);
+    border: none;
+    border-radius: 0.5em;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: 0.3s ease-in-out;
+    display: block;
+    margin: auto;
+}
+
+.sign-in-button:hover {
+    opacity: 0.5;
+}
+
+.sign-in-button:active {
+    opacity: 0.5;
+    transform: scale(0.90);
 }

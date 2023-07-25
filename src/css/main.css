@@ -10,3 +10,30 @@
 .recent-posts h1 {
     text-indent: 20px;
 }
+
+.recent-posts-container {
+    text-align: center;
+    padding-bottom: 20px;
+    display: block;
+}
+
+.post {
+    width: 95%;
+    background-color: rgb(228, 228, 228);
+    border-radius: 1em;
+    border: solid rgb(228, 228, 228) 1px;
+    padding: 20px;
+    text-align: left;
+    display: block;
+    margin: 30px auto;
+    transition: 0.3s ease-in-out;
+}
+
+.post:hover {
+    background-color: white;
+    border: solid black 1px;
+}
+
+.post h1 {
+    text-indent: 0;
+}

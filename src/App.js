@@ -5,11 +5,13 @@ import NewPost from "./pages/post";
 import "./App.css";
 import Search from "./pages/search";
 import ViewPost from "./pages/post viewer";
+import NotFound from "./pages/404";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path='*' element={<NotFound />} />
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
         <Route path="/new_post" element={<NewPost />} />

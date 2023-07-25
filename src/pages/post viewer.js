@@ -5,6 +5,7 @@ import "../css/spinners.css";
 import "../css/post view.css";
 import getCookieValue from "../scripts/get_username";
 import { get_token } from "../scripts/verify_token";
+import { check_token } from "../scripts/verify_token";
 
 // Component for writing comments and answers
 function Writer({ state, setState }) {
@@ -107,6 +108,43 @@ function Writer({ state, setState }) {
     }
 }
 
+function Controls({setWriterState}) {
+    const [showControls, setShowControls] = useState(false);
+
+    // Handles opening comment writer
+    function handle_comment_open() {
+        setWriterState('comment');
+    }
+
+    // Handles opening the answer writer
+    function handle_answer_open() {
+        setWriterState('answer');
+    }
+
+    useEffect(() => {
+        async function handle_show_controls() {
+            // Checks if Lif token exists
+            const token_status = await check_token()
+
+            if (token_status) {
+                setShowControls(true);
+            }
+        }
+        handle_show_controls();
+    })
+
+    if (showControls) {
+        return(
+            <div className="controls">
+                <button onClick={handle_comment_open}>Comment</button>
+                <button onClick={handle_answer_open}>Answer</button>
+            </div>
+        );
+    } else {
+        return null;
+    }
+}
+
 function Post() {
     const [postState, setPostState] = useState('loading');
     const [writerState, setWriterState] = useState('closed')
@@ -142,15 +180,7 @@ function Post() {
         load_post();
     }, [post_id])
 
-    // Handles opening comment writer
-    function handle_comment_open() {
-        setWriterState('comment');
-    }
-
-    // Handles opening the answer writer
-    function handle_answer_open() {
-        setWriterState('answer');
-    }
+    
 
     if (postState === "loading") {
         return(
@@ -164,12 +194,10 @@ function Post() {
                 <h1>{postState.Title}</h1>
                 <p style={{ whiteSpace: 'pre-line' }}>{postState.Content}</p>
                 <span className={postState.Software === "Ringer" ? "ringer-software" : postState.Software === "Dayly" ? "dayly-software" : "software"}>{postState.Software}</span>
-                <div className="controls">
-                    <button onClick={handle_comment_open}>Comment</button>
-                    <button onClick={handle_answer_open}>Answer</button>
-                </div>
+                <Controls setWriterState={setWriterState}/>
                 <Writer state={writerState} setState={setWriterState} />
                 <img src={`http://localhost:8002/get_pfp/${postState.Author}.png`} alt="" className="post-author-img" />
+                <span className="post-author">{postState.Author}</span>
             </div>
         )
     } else if (postState === "404") {

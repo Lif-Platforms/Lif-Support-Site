@@ -78,4 +78,12 @@
 
 .login-form span {
     color: red;
+    padding-top: 20px;
+    display: block;
+}
+
+.login-form a {
+    color: blue;
+    text-decoration: underline blue 2px;
+    text-underline-offset: 3px;
 }

@@ -5,35 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 function Login() {
     const navigate = useNavigate(); 
-
-    // Handles the login process
-    async function handle_login() {
-        // Gets the login credentials form the form
-        const UsernameInput = document.getElementById("username");
-        const username = UsernameInput.value; 
-
-        const PasswordInput = document.getElementById("password");
-        const password = PasswordInput.value; 
-
-        // Sets the login button to logging in
-        const LoginButton = document.getElementById("login_button");
-        LoginButton.textContent = "Logging In...";
-
-        // Logs in the user with the lif auth server
-        const login_status = await User_Login(username, password);
-
-        if (login_status === "GOOD!") {
-            console.log("login Status: " + login_status);
-            LoginButton.innerHTML = "Done!";
-            navigate("/");
-        } else {
-            console.log("login Status: " + login_status);
-            LoginButton.innerHTML = "Login";
-            const login_status_element = document.getElementById("login_status")
-            login_status_element.innerHTML = "Invalid Credentials"
-        }   
-    }
-
+    
     return(
         <div className="login-container">
             <div className="login-form">
@@ -44,8 +16,11 @@ function Login() {
                     <br />
                     <input type="password" id="password" placeholder="Password" />
                     <br />
-                    <button type="button" id="login_button" onClick={handle_login}>Login</button>
+                    <button type="button" id="login_button" onClick={() => User_Login(navigate)}>Login</button>
                 </form>
+                <br />
+                {/* eslint-disable-next-line */}
+                <a href="#">Forgot Password</a>
                 <br />
                 <span id="login_status"></span>
             </div>
