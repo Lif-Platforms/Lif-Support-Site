@@ -18,7 +18,10 @@ function RecentPosts() {
 
     useEffect(() => {
         async function get_posts() {
-            fetch('http://localhost:8003/load_recent_posts')
+            // Backend url
+            const support_url = process.env.REACT_APP_SUPPORT_SERVER_URL;
+
+            fetch(`${support_url}/load_recent_posts`)
             .then(response => {
                 if (response.ok) {
                 return response.json(); // Convert response to JSON

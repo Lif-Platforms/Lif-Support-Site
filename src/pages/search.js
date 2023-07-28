@@ -14,7 +14,10 @@ function SearchResults() {
     useEffect(() => {
         async function get_results() {
 
-        fetch('http://localhost:8003/search/' + query)
+        // Backend url
+        const support_url = process.env.REACT_APP_SUPPORT_SERVER_URL;
+
+        fetch(`${support_url}/search/${query}`)
             .then(response => {
                 if (response.ok) {
                 return response.json(); // Convert response to JSON

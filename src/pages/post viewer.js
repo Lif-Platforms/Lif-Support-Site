@@ -33,7 +33,10 @@ function Writer({ state, setState }) {
         formData.append("comment", comment);
         formData.append("post_id", post_id);
 
-        fetch(`http://localhost:8003/new_comment/${username}/${token}`, {
+        // Backend url
+        const support_url = process.env.REACT_APP_SUPPORT_SERVER_URL;
+
+        fetch(`${support_url}/new_comment/${username}/${token}`, {
             method: "POST",
             body: formData
         })
@@ -68,7 +71,10 @@ function Writer({ state, setState }) {
         formData.append("answer", answer);
         formData.append("post_id", post_id);
 
-        fetch(`http://localhost:8003/new_answer/${username}/${token}`, {
+        // Backend url
+        const support_url = process.env.REACT_APP_SUPPORT_SERVER_URL;
+
+        fetch(`${support_url}/new_answer/${username}/${token}`, {
             method: "POST",
             body: formData
         })
@@ -154,7 +160,10 @@ function Post() {
 
     useEffect(() => {
         async function load_post() {
-            fetch('http://localhost:8003/load_post/' + post_id)
+            // Backend url
+            const support_url = process.env.REACT_APP_SUPPORT_SERVER_URL;
+
+            fetch(`${support_url}/load_post/${post_id}`)
             .then(response => {
                 if (response.ok) {
                 return response.json(); // Convert response to JSON
@@ -216,8 +225,11 @@ function Comments() {
     // Retrieve the post id parameter from the URL
     const { post_id } = useParams();
 
+    // Backend url
+    const support_url = process.env.REACT_APP_SUPPORT_SERVER_URL;
+
     useEffect(() => {
-        fetch('http://localhost:8003/load_comments/' + post_id)
+        fetch(`${support_url}/load_comments/${post_id}`)
         .then(response => {
             if (response.ok) {
             return response.json(); // Convert response to JSON

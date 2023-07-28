@@ -82,8 +82,11 @@ function NewPost() {
         formData.append("content", body);
         formData.append("software", software);
 
+        // Backend url
+        const support_url = process.env.REACT_APP_SUPPORT_SERVER_URL;
+
         // Makes the request to the server
-        fetch(`http://localhost:8003/new_post/${username}/${token}`, {
+        fetch(`${support_url}/new_post/${username}/${token}`, {
             method: "POST",
             body: formData
         })
