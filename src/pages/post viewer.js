@@ -205,7 +205,7 @@ function Post() {
                 <span className={postState.Software === "Ringer" ? "ringer-software" : postState.Software === "Dayly" ? "dayly-software" : "software"}>{postState.Software}</span>
                 <Controls setWriterState={setWriterState}/>
                 <Writer state={writerState} setState={setWriterState} />
-                <img src={`http://localhost:8002/get_pfp/${postState.Author}.png`} alt="" className="post-author-img" />
+                <img src={`${process.env.REACT_APP_AUTH_SERVER_URL}/get_pfp/${postState.Author}.png`} alt="" className="post-author-img" />
                 <span className="post-author">{postState.Author}</span>
             </div>
         )
@@ -267,7 +267,7 @@ function Comments() {
                 {commentsState.map(item => (
                     (item.Type === "Comment" ? 
                         <div className="comment">
-                            <img src={`http://localhost:8002/get_pfp/${item.Author}.png`} alt="" />
+                            <img src={`${process.env.REACT_APP_AUTH_SERVER_URL}/get_pfp/${item.Author}.png`} alt="" />
                             <div>
                                 <h1>{item.Author}</h1>
                                 <p>{item.Content}</p>

@@ -75,6 +75,7 @@ nav {
     box-shadow: 3px 3px 10px rgb(201, 201, 201);
     border: 1px solid black;
     transition: 0.3s;
+    border: none;
 }
 
 .topnav-search input {
@@ -84,6 +85,10 @@ nav {
     color: black;
     margin-left: 10px;
     width: 100%;
+}
+
+.topnav-search input:active {
+    border: none;
 }
 
 .topnav-post {
@@ -168,6 +173,8 @@ nav {
     transition: 0.3s ease-in-out;
     border: solid rgb(230, 230, 230) 1px;
     cursor: pointer;
+    text-decoration: none;
+    color: black;
 }
 
 .account-panel a:hover {

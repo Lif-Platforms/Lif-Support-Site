@@ -3,6 +3,7 @@ import Logo from "../assets/global/Lif-Logo.png";
 import "../css/main.css";
 import "../css/spinners.css";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom/dist";
 
 function Title() {
     return(
@@ -15,6 +16,12 @@ function Title() {
 
 function RecentPosts() {
     const [recentPostState, setRecentPostState] = useState('loading');
+
+    const navigate = useNavigate();
+
+    function handle_navigate(post_id) {
+        navigate(`/view_post/${post_id}`);
+    }
 
     useEffect(() => {
         async function get_posts() {
@@ -58,7 +65,7 @@ function RecentPosts() {
                 <h1> Recent Posts:</h1>
                 <div className="recent-posts-container">
                     {recentPostState.map(item => (
-                        <a href={`view_post/${item.Id}`}>
+                        <a onClick={() => handle_navigate(item.Id)}>
                             <div className="post">
                                 <h1>{item.Title}</h1>
                                 <p>{item.Content}</p>

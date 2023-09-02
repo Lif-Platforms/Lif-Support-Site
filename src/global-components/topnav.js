@@ -109,7 +109,7 @@ function Topnav() {
             </div>
             <div className="topnav-search">
                 <img src={MagnifyingGlass} alt="Search Icon" />
-                <input type="text" placeholder="Search" onKeyDown={handleKeyPress} id="search-box" /> 
+                <input type="text" placeholder="Search" onKeyDown={handleKeyPress} id="search-box" style={{border: "none"}} /> 
             </div>  
             <div className="topnav-post">
                 <button onClick={handle_post_button}>Post</button>

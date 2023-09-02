@@ -9,10 +9,10 @@ import NotFound from "./pages/404";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/">
       <Routes>
         <Route path='*' element={<NotFound />} />
-        <Route path="/" element={<Main />} />
+        <Route exact path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
         <Route path="/new_post" element={<NewPost />} />
         <Route path="/search/:query" element={<Search />} />
