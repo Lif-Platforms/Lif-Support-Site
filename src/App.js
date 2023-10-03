@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import Main from "./pages/main";
 import Login from "./pages/login"
 import NewPost from "./pages/post";
@@ -9,7 +9,7 @@ import NotFound from "./pages/404";
 
 function App() {
   return (
-    <BrowserRouter basename="/">
+    <HashRouter basename="/">
       <Routes>
         <Route path='*' element={<NotFound />} />
         <Route exact path="/" element={<Main />} />
@@ -18,7 +18,7 @@ function App() {
         <Route path="/search/:query" element={<Search />} />
         <Route path="/view_post/:post_id" element={<ViewPost />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
