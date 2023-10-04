@@ -64,7 +64,7 @@ nav {
     transition: 0.3s;
 }
 
-.topnav-search input:focus + .topnav-search {
+.topnav-search input:focus > .topnav-search div {
     background-color: rgb(233, 232, 232);
     border-radius: 1em;
     height: min-content;
@@ -87,8 +87,8 @@ nav {
     width: 100%;
 }
 
-.topnav-search input:active {
-    border: none;
+.topnav-search input:focus {
+    outline: none;
 }
 
 .topnav-post {
