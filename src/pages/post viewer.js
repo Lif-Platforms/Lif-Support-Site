@@ -278,7 +278,7 @@ function Comments() {
                             <h1>Answer</h1>
                             <p style={{ whiteSpace: 'pre-line' }}>{item.Content}</p>
                             <span>Posted By: {item.Author}</span>
-                            <img src={`http://localhost:8002/get_pfp/${item.Author}.png`} alt="" />
+                            <img src={`${process.env.REACT_APP_AUTH_SERVER_URL}/get_pfp/${item.Author}.png`} alt="" />
                         </div>
                     )
                 ))}
