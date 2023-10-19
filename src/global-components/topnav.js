@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import getCookieValue from '../scripts/get_username';
 import { useEffect, useState } from "react";
 import log_out from "../scripts/utils/log out";
+import $ from 'jquery';
 
 function AccountPanel({ show }) {
     const [username, setUsername] = useState(null);
@@ -68,6 +69,18 @@ function Topnav() {
     const navigate = useNavigate();
     const [panelShow, setPanelShow] = useState(false);
 
+    // Store the current window width in use state variable
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    // Store the mode of the post button
+    // Used for optimizing the button for smaller screens
+    // Possible modes are "full" and "small"
+    const [postButtonMode, setPostButtonMode] = useState('full');
+
+    // Store the mode of the search bar
+    // Available modes are "full" and "compact"
+    const [searchBoxMode, setSearchBoxMode] = useState('full');
+
     // Auth server url
     const auth_url = process.env.REACT_APP_AUTH_SERVER_URL;
 
@@ -102,21 +115,64 @@ function Topnav() {
         setPanelShow(!panelShow);
     }
 
+    // Event listener for window resize
+    // Used for optimizing the top nav when the page is resized
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+      
+        window.addEventListener('resize', handleResize);
+
+        // Remove event listener when component is unmounted
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, [])
+
+    // Optimize post button based on window width
+    useEffect(() => {
+        if (windowWidth <= 900) {
+            setPostButtonMode('small');
+
+        } else {
+            setPostButtonMode('full')
+        }
+    }, [windowWidth])
+
+    // Optimize search box based on window width
+    useEffect(() => {
+        if (windowWidth <= 550) {
+            setSearchBoxMode('compact');
+        } else {
+            setSearchBoxMode('full');
+        }
+
+    }, [windowWidth])
+
     return(
         <nav>
             <div className="topnav-logo">
                 <a href="/"><img src={Logo} alt="Lif Logo" /></a>
             </div>
-            <div className="topnav-search">
-                <img src={MagnifyingGlass} alt="Search Icon" />
-                <input type="text" placeholder="Search" onKeyDown={handleKeyPress} id="search-box" style={{border: "none"}} /> 
-            </div>  
+            {searchBoxMode === "full" ? (
+                <div className="topnav-search">
+                    <img src={MagnifyingGlass} alt="Search Icon" />
+                    <input type="text" placeholder="Search" onKeyDown={handleKeyPress} id="search-box" style={{border: "none"}} /> 
+                </div>  
+            ) : (
+                <div className="topnav-search">
+                    <img src={MagnifyingGlass} alt="Search Icon" />
+                    <span>Search</span>
+                </div>
+            )}
+            
             <div className="topnav-post">
-                <button onClick={handle_post_button}>Post</button>
+                <button onClick={handle_post_button}>{postButtonMode === "full" ? "Post" : "+"}</button>
             </div>
             <div className="topnav-account">
                 {/* eslint-disable-next-line */}
-                <a onClick={handle_account_panel}><img src={url} alt="Profile Pic" /></a>
+                <a onClick={handle_account_panel}><img src={url} alt="" /></a>
                 <AccountPanel show={panelShow} />
             </div>
         </nav>
