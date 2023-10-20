@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import getCookieValue from '../scripts/get_username';
 import { useEffect, useState } from "react";
 import log_out from "../scripts/utils/log out";
+import close_icon from '../assets/global/close-icon.png';
 import $ from 'jquery';
 
 function AccountPanel({ show }) {
@@ -64,6 +65,41 @@ function AccountPanel({ show }) {
     return null;
 }
 
+// Component to compact search box
+function SearchBoxCompact({ searchBoxOpen, setSearchBoxOpen}) {
+    // Modify the styles of the post and avatar buttons to hide them
+    // when the search bar is open
+    useEffect(() => {
+        const topnav_account = document.getElementById('topnav-account');
+        const topnav_post = document.getElementById('topnav-post');
+
+        if (searchBoxOpen === true) {
+            topnav_post.style.display = 'none';
+            topnav_account.style.display = 'none';
+        } else {
+            topnav_post.style.display = 'initial';
+            topnav_account.style.display = 'initial';
+        }
+    }, [searchBoxOpen])
+
+    if (searchBoxOpen === true) {
+        return(
+            <div className="topnav-search-open">
+                <img src={MagnifyingGlass} alt="Search Icon" />
+                <input type="text" placeholder="Search" id="search-box" />
+                <img src={close_icon} alt="" onClick={() => setSearchBoxOpen(false)} className="topnav-close-button"/>
+            </div>
+        );
+    } else {
+        return(
+            <div className="topnav-search" onClick={() => setSearchBoxOpen(true)}>
+                <img src={MagnifyingGlass} alt="Search Icon" />
+                <span>Search</span>
+            </div>
+        );
+    }
+}
+
 function Topnav() {
     const [username, setUsername] = useState('');
     const navigate = useNavigate();
@@ -80,6 +116,9 @@ function Topnav() {
     // Store the mode of the search bar
     // Available modes are "full" and "compact"
     const [searchBoxMode, setSearchBoxMode] = useState('full');
+
+    // Store the open/close state of compact search box
+    const [searchBoxOpen, setSearchBoxOpen] = useState(false);
 
     // Auth server url
     const auth_url = process.env.REACT_APP_AUTH_SERVER_URL;
@@ -161,16 +200,13 @@ function Topnav() {
                     <input type="text" placeholder="Search" onKeyDown={handleKeyPress} id="search-box" style={{border: "none"}} /> 
                 </div>  
             ) : (
-                <div className="topnav-search">
-                    <img src={MagnifyingGlass} alt="Search Icon" />
-                    <span>Search</span>
-                </div>
+                <SearchBoxCompact searchBoxOpen={searchBoxOpen} setSearchBoxOpen={setSearchBoxOpen} />
             )}
             
-            <div className="topnav-post">
+            <div className="topnav-post" id="topnav-post">
                 <button onClick={handle_post_button}>{postButtonMode === "full" ? "Post" : "+"}</button>
             </div>
-            <div className="topnav-account">
+            <div className="topnav-account" id="topnav-account">
                 {/* eslint-disable-next-line */}
                 <a onClick={handle_account_panel}><img src={url} alt="" /></a>
                 <AccountPanel show={panelShow} />
