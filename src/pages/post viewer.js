@@ -21,6 +21,7 @@ function Writer({ state, setState }) {
         // Update post button status
         document.getElementById('writer-post').innerHTML = "Posting...";
         document.getElementById('writer-post').disabled = true;
+        document.getElementById('writer-post-status').innerHTML = '';
 
         // Gets auth information
         const username = await getCookieValue();
@@ -40,18 +41,25 @@ function Writer({ state, setState }) {
             method: "POST",
             body: formData
         })
-        .then(response => response.json())
+        .then(response => {
+            if (response.status === 201) {
+                return response.json();
+            } else {
+                throw new Error('Request failed with status code: ' + response.status);
+            }
+        })
         .then(data => {
             // Handle the response data
             console.log(data);
 
-            if (data.Status === "Ok") {
-                window.location.reload();
-            }
+            window.location.reload();
         })
         .catch(error => {
             // Handle any errors
             console.error(error);
+            document.getElementById('writer-post-status').innerHTML = 'Something Went Wrong';
+            document.getElementById('writer-post').innerHTML = "Post";
+            document.getElementById('writer-post').disabled = false;
         });
     }
 
@@ -59,6 +67,7 @@ function Writer({ state, setState }) {
         // Update post button status
         document.getElementById('writer-post').innerHTML = "Posting...";
         document.getElementById('writer-post').disabled = true;
+        document.getElementById('writer-post-status').innerHTML = '';
 
         // Gets auth information
         const username = await getCookieValue();
@@ -78,18 +87,25 @@ function Writer({ state, setState }) {
             method: "POST",
             body: formData
         })
-        .then(response => response.json())
+        .then(response => {
+            if (response.status === 201) {
+                return response.json();
+            } else {
+                throw new Error('Request failed with status code:' + response.status);
+            }
+        })
         .then(data => {
             // Handle the response data
             console.log(data);
 
-            if (data.Status === "Ok") {
-                window.location.reload();
-            }
+            window.location.reload();
         })
         .catch(error => {
             // Handle any errors
             console.error(error);
+            document.getElementById('writer-post-status').innerHTML = 'Something Went Wrong!';
+            document.getElementById('writer-post').innerHTML = "Post";
+            document.getElementById('writer-post').disabled = false;
         });
     }
 
@@ -99,6 +115,7 @@ function Writer({ state, setState }) {
                 <h1>Share Your Thoughts</h1>
                 <input placeholder="Comment" type="text" id="comment"/>
                 <button className="writer-post-button" id="writer-post" onClick={handle_comment}>Post</button>
+                <span className="writer-post-status" id="writer-post-status" />
                 <button className="writer-close-btn" onClick={handle_close}>&#10006;</button>
             </div>
         )
@@ -108,6 +125,7 @@ function Writer({ state, setState }) {
                 <h1>Post Your Answer</h1>
                 <textarea placeholder="Answer..." id="answer" />
                 <button className="writer-post-button" id="writer-post" onClick={handle_answer}>Post</button>
+                <span className="writer-post-status" id="writer-post-status" />
                 <button className="writer-close-btn" onClick={handle_close}>&#10006;</button>
             </div>
         )
