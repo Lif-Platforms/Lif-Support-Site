@@ -37,8 +37,12 @@ function Writer({ state, setState }) {
         // Backend url
         const support_url = process.env.REACT_APP_SUPPORT_SERVER_URL;
 
-        fetch(`${support_url}/new_comment/${username}/${token}`, {
+        fetch(`${support_url}/new_comment`, {
             method: "POST",
+            headers: {
+                username: username,
+                token: token
+            },
             body: formData
         })
         .then(response => {
@@ -83,8 +87,12 @@ function Writer({ state, setState }) {
         // Backend url
         const support_url = process.env.REACT_APP_SUPPORT_SERVER_URL;
 
-        fetch(`${support_url}/new_answer/${username}/${token}`, {
+        fetch(`${support_url}/new_answer`, {
             method: "POST",
+            headers: {
+                username: username,
+                token: token
+            },
             body: formData
         })
         .then(response => {
