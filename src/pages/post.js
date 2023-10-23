@@ -89,8 +89,12 @@ function NewPost() {
         document.getElementById('post-status').innerHTML = "";
 
         // Makes the request to the server
-        fetch(`${support_url}/new_post/${username}/${token}`, {
+        fetch(`${support_url}/new_post`, {
             method: "POST",
+            headers: {
+                username: username,
+                token: token
+            },
             body: formData
         })
         .then(response => {
