@@ -192,24 +192,26 @@ function Post() {
             fetch(`${support_url}/load_post/${post_id}`)
             .then(response => {
                 if (response.ok) {
-                return response.json(); // Convert response to JSON
+                    return response.json(); // Convert response to JSON
                 } else {
-                throw new Error('Request failed with status code: ' + response.status);
+                    const error = new Error('Request Failed: ' + response.status);
+                    error.status = response.status; // Add status property to the error object
+                    throw error;
                 }
             })
             .then(data => {
                 // Work with the data
                 console.log(data);
 
-                if (data === false) {
-                    setPostState('404');
-                } else {
-                    setPostState(data);
-                }
+                setPostState(data);
             })
             .catch(error => {
                 // Handle any errors
                 console.error(error);
+
+                if (error.status === 404) {
+                    setPostState('404');
+                }
             });
         }
         load_post();
@@ -258,9 +260,11 @@ function Comments() {
         fetch(`${support_url}/load_comments/${post_id}`)
         .then(response => {
             if (response.ok) {
-            return response.json(); // Convert response to JSON
+                return response.json(); // Convert response to JSON
             } else {
-            throw new Error('Request failed with status code: ' + response.status);
+                const error = new Error('Request Failed: ' + response.status);
+                error.status = response.status; // Add status property to the error object
+                throw error;
             }
         })
         .then(data => {
@@ -276,7 +280,10 @@ function Comments() {
         .catch(error => {
             // Handle any errors
             console.error(error);
+
+            setCommentsState('404');
         });
+
     // eslint-disable-next-line
     }, [])
 
