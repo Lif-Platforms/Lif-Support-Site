@@ -12,6 +12,11 @@
     padding-bottom: 20px;
 }
 
+.search-results a {
+    text-decoration: none;
+    color: black;
+}
+
 .search-item {
     text-align: left;
     background-color: rgb(230, 227, 227);

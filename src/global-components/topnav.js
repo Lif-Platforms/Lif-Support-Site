@@ -19,7 +19,11 @@ function AccountPanel({ show }) {
         fetchData()
     }, [show]);
 
-    let url = `http://localhost:8002/get_pfp/${username}.png`;
+    // Auth server url
+    const auth_url = process.env.REACT_APP_AUTH_SERVER_URL;
+
+    // Url for user profile pic
+    let url = `${auth_url}/get_pfp/${username}.png`;
 
     const handle_log_out = () => {
         log_out();
@@ -64,6 +68,9 @@ function Topnav() {
     const navigate = useNavigate();
     const [panelShow, setPanelShow] = useState(false);
 
+    // Auth server url
+    const auth_url = process.env.REACT_APP_AUTH_SERVER_URL;
+
     function handle_post_button() {
         navigate("/new_post");
     }
@@ -77,7 +84,7 @@ function Topnav() {
       }, []);
 
       // Url to profile pic
-      let url = `http://localhost:8002/get_pfp/${username}.png`;
+      let url = `${auth_url}/get_pfp/${username}.png`;
 
       // function for redirecting to search page with search query
       function handleKeyPress(event) {
@@ -102,7 +109,7 @@ function Topnav() {
             </div>
             <div className="topnav-search">
                 <img src={MagnifyingGlass} alt="Search Icon" />
-                <input type="text" placeholder="Search" onKeyDown={handleKeyPress} id="search-box" /> 
+                <input type="text" placeholder="Search" onKeyDown={handleKeyPress} id="search-box" style={{border: "none"}} /> 
             </div>  
             <div className="topnav-post">
                 <button onClick={handle_post_button}>Post</button>

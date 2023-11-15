@@ -1,11 +1,18 @@
 import Topnav from "../global-components/topnav";
 import "../css/search.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "../css/spinners.css";
 
 function SearchResults() {
     const [resultsState, setResultsState] = useState('loading');
+
+    // Create navigation instance
+    const navigate = useNavigate();
+
+    function handle_navigate(post_id) {
+        navigate(`/view_post/${post_id}`);
+    }
 
     // Retrieve the query parameter from the URL
     const { query } = useParams();
@@ -14,7 +21,10 @@ function SearchResults() {
     useEffect(() => {
         async function get_results() {
 
-        fetch('http://localhost:8003/search/' + query)
+        // Backend url
+        const support_url = process.env.REACT_APP_SUPPORT_SERVER_URL;
+
+        fetch(`${support_url}/search/${query}`)
             .then(response => {
                 if (response.ok) {
                 return response.json(); // Convert response to JSON
@@ -47,7 +57,7 @@ function SearchResults() {
         return(
             <div className="search-results">
                 {resultsState.map(item => (
-                    <a href={`/view_post/${item.Id}`}>
+                    <a onClick={() => handle_navigate(item.Id)}>
                         <div className="search-item">
                             <h1>{item.Title}</h1>
                             <p>{item.Content}</p>
