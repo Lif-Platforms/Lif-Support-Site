@@ -12,7 +12,10 @@ export function User_Login(navigate) {
   const LoginButton = document.getElementById("login_button");
   LoginButton.textContent = "Logging In...";
 
-  fetch(`http://localhost:8002/login/${username}/${password}`)
+  // Auth server url
+  const auth_url = process.env.REACT_APP_AUTH_SERVER_URL; 
+
+  fetch(`${auth_url}/login/${username}/${password}`)
   .then(response => {
       if (response.ok) {
       return response.json(); // Convert response to JSON

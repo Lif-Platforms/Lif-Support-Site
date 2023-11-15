@@ -82,34 +82,49 @@ function NewPost() {
         formData.append("content", body);
         formData.append("software", software);
 
+        // Backend url
+        const support_url = process.env.REACT_APP_SUPPORT_SERVER_URL;
+
+        // Update post status
+        document.getElementById('post-status').innerHTML = "";
+
         // Makes the request to the server
-        fetch(`http://localhost:8003/new_post/${username}/${token}`, {
+        fetch(`${support_url}/new_post`, {
             method: "POST",
+            headers: {
+                username: username,
+                token: token
+            },
             body: formData
         })
         .then(response => {
-            if (response.ok) {
-            return response.json(); // Convert response to JSON
+            if (response.status === 201) {
+                return response.json(); // Convert response to JSON
             } else {
-            throw new Error('Request failed with status code: ' + response.status);
+                throw new Error('Request failed with status code: ' + response.status);
             }
         })
         .then(data => {
             // Work with the data
             console.log(data);
-            if (data['Status'] === "Ok"){
-                // Changes the status of the post button
-                post_button.innerHTML = "Done!";
+            
+            // Changes the status of the post button
+            post_button.innerHTML = "Done!";
 
-                // Navigates to the users post
-                setTimeout(() => {
-                    navigate(`/view_post/${data.post_id}`);
-                }, 2000); 
-            }  
+            // Navigates to the users post
+            setTimeout(() => {
+                navigate(`/view_post/${data.post_id}`);
+            }, 2000); 
+           
         })
         .catch(error => {
             // Handle any errors
             console.error(error);
+
+            // Update post status
+            document.getElementById('post-status').innerHTML = "Something Went Wrong!";
+            post_button.innerHTML = "Post";
+            post_button.disabled = false;
         });
         }
 
@@ -137,7 +152,8 @@ function NewPost() {
                             <option value="Dayly">Dayly</option> 
                         </select>
                         <br />
-                        <button id="post-button" onClick={create_post}>Post</button>
+                        <button id="post-button" onClick={() => create_post()}>Post</button>
+                        <span className="post-status" id="post-status" />
                     </div>
                 </div>  
             </div>

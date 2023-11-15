@@ -28,10 +28,15 @@ nav {
 
 .topnav-account img {
     width: 40px;
+    height: 40px;
     border-radius: 50%;
     border: solid rgb(170, 170, 170);
     border-width: 3px;
     transition: ease-in-out 0.2s;
+}
+
+.topnav-account img:active {
+    transform: scale(1);
 }
 
 .topnav-search {
@@ -59,7 +64,7 @@ nav {
     transition: 0.3s;
 }
 
-.topnav-search input:focus + .topnav-search {
+.topnav-search input:focus > .topnav-search div {
     background-color: rgb(233, 232, 232);
     border-radius: 1em;
     height: min-content;
@@ -70,6 +75,7 @@ nav {
     box-shadow: 3px 3px 10px rgb(201, 201, 201);
     border: 1px solid black;
     transition: 0.3s;
+    border: none;
 }
 
 .topnav-search input {
@@ -79,6 +85,10 @@ nav {
     color: black;
     margin-left: 10px;
     width: 100%;
+}
+
+.topnav-search input:focus {
+    outline: none;
 }
 
 .topnav-post {
@@ -163,6 +173,8 @@ nav {
     transition: 0.3s ease-in-out;
     border: solid rgb(230, 230, 230) 1px;
     cursor: pointer;
+    text-decoration: none;
+    color: black;
 }
 
 .account-panel a:hover {

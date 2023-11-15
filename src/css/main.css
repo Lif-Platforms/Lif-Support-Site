@@ -17,6 +17,10 @@
     display: block;
 }
 
+.recent-posts a {
+    text-decoration: none;
+}
+
 .post {
     width: 95%;
     background-color: rgb(228, 228, 228);
@@ -27,6 +31,7 @@
     display: block;
     margin: 30px auto;
     transition: 0.3s ease-in-out;
+    color: black;
 }
 
 .post:hover {
