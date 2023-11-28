@@ -14,6 +14,12 @@
     text-align: left;
 }
 
+.post-date {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
 .post-view-header {
     border-radius: 1em;
     border: 1px solid black;
