@@ -217,8 +217,6 @@ function Post() {
         load_post();
     }, [post_id])
 
-    
-
     if (postState === "loading") {
         return(
             <div className="post-view-header post-loading">
@@ -230,6 +228,7 @@ function Post() {
             <div className="post-view-header post-loaded">
                 <h1>{postState.Title}</h1>
                 <p style={{ whiteSpace: 'pre-line' }}>{postState.Content}</p>
+                <span className="post-date">Posted: {postState.Date ? postState.Date : "Not Available"}</span>
                 <span className={postState.Software === "Ringer" ? "ringer-software" : postState.Software === "Dayly" ? "dayly-software" : "software"}>{postState.Software}</span>
                 <Controls setWriterState={setWriterState}/>
                 <Writer state={writerState} setState={setWriterState} />
