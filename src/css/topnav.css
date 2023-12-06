@@ -44,12 +44,31 @@ nav {
         margin-left: 20px;
         margin-right: 20px;
     }
+
+    .topnav-account img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .topnav-post button {
+        padding: 3px 10px 3px 10px !important;
+        font-size: medium;
+    }
+
+    .topnav-post button:active {
+        padding: 3px 10px 3px 10px !important;
+        font-size: medium;
+    }
 }
 
 @media screen and (max-width: 350px) {
     .topnav-account {
         margin-left: 10px;
         margin-right: 10px;
+    }
+
+    .topnav-logo img {
+        width: 80px;
     }
 }
 
@@ -139,6 +158,7 @@ nav {
 .topnav-search-open input {
     background-color: transparent;
     border: none;
+    outline: none;
     margin: auto;
     color: black;
     margin-left: 10px;
