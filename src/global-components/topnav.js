@@ -6,7 +6,6 @@ import getCookieValue from '../scripts/get_username';
 import { useEffect, useState } from "react";
 import log_out from "../scripts/utils/log out";
 import close_icon from '../assets/global/close-icon.png';
-import $ from 'jquery';
 
 function AccountPanel({ show }) {
     const [username, setUsername] = useState(null);
@@ -67,6 +66,8 @@ function AccountPanel({ show }) {
 
 // Component to compact search box
 function SearchBoxCompact({ searchBoxOpen, setSearchBoxOpen}) {
+    const navigate = useNavigate();
+
     // Modify the styles of the post and avatar buttons to hide them
     // when the search bar is open
     useEffect(() => {
@@ -80,13 +81,25 @@ function SearchBoxCompact({ searchBoxOpen, setSearchBoxOpen}) {
             topnav_post.style.display = 'initial';
             topnav_account.style.display = 'initial';
         }
-    }, [searchBoxOpen])
+    }, [searchBoxOpen]);
+
+    // function for redirecting to search page with search query
+    function handleKeyPress(event) {
+        if (event.key === 'Enter') {
+            // Gets the query from the search box
+            const search_box = document.getElementById('search-box');
+            const query = search_box.value; 
+
+            // Navigates to search page 
+            navigate(`/search/${query}`);
+        }
+      }
 
     if (searchBoxOpen === true) {
         return(
             <div className="topnav-search-open">
                 <img src={MagnifyingGlass} alt="Search Icon" />
-                <input type="text" placeholder="Search" id="search-box" />
+                <input type="text" placeholder="Search" onKeyDown={handleKeyPress} id="search-box" />
                 <img src={close_icon} alt="" onClick={() => setSearchBoxOpen(false)} className="topnav-close-button"/>
             </div>
         );
