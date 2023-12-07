@@ -34,6 +34,18 @@
     overflow-wrap: anywhere;
 }
 
+@media screen and (max-width: 900px) {
+    .post-view-header {
+        width: 85%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .post-view-header {
+        width: 80%;
+    }
+}
+
 .software {
     padding: 5px;
     background-color: white;
@@ -148,6 +160,15 @@
     border: solid black 1px;
 }
 
+@media screen and (max-width: 700px) {
+    .post-writer input {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+}
+
 .post-writer textarea {
     padding: 10px;
     border-radius: 0.5em;
@@ -159,6 +180,17 @@
     margin-left: auto;
     margin-right: auto;
     display: block;
+}
+
+@media screen and (max-width: 500px) {
+    .post-writer h1 {
+        font-size: x-large;
+        margin-top: 25px;
+    }
+
+    .post-writer textarea {
+        width: 90%;
+    }
 }
 
 .writer-close-btn {
@@ -190,6 +222,18 @@
     padding: 20px;
     margin-top: 50px;
     margin-bottom: 50px;
+}
+
+@media screen and (max-width: 900px) {
+    .comments-viewer {
+        width: 85%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .comments-viewer {
+        width: 80%;
+    }
 }
 
 .comment {

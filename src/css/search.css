@@ -4,6 +4,7 @@
 
 .search-query {
     padding-left: 20px;
+    display: block;
 }
 
 .search-results {
@@ -29,6 +30,11 @@
     transition: 0.3s;
 }
 
+.search-item p {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
 .search-item:hover {
     text-align: left;
     background-color: white;
@@ -39,6 +45,29 @@
     padding: 20px;
     margin-top: 20px;
     transition: 0.3s;
+}
+
+@media screen and (max-width: 700px) {
+    .search-query {
+        margin-top: 50px;
+    }
+
+    .search-item {
+        width: 85%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .search-query {
+        font-size: x-large;
+        margin-top: 60px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .search-item {
+        width: 80%;
+    }
 }
 
 .software {
