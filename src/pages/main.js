@@ -4,6 +4,7 @@ import "../css/main.css";
 import "../css/spinners.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom/dist";
+import SpinnerIcon from "../global-components/loader";
 
 function Title() {
     return(
@@ -31,9 +32,9 @@ function RecentPosts() {
             fetch(`${support_url}/load_recent_posts`)
             .then(response => {
                 if (response.ok) {
-                return response.json(); // Convert response to JSON
+                    return response.json(); // Convert response to JSON
                 } else {
-                throw new Error('Request failed with status code: ' + response.status);
+                    throw new Error('Request failed with status code: ' + response.status);
                 }
             })
             .then(data => {
@@ -45,6 +46,7 @@ function RecentPosts() {
             .catch(error => {
                 // Handle any errors
                 console.error(error);
+                setRecentPostState("failed");
             });
         }
         get_posts();
@@ -55,7 +57,7 @@ function RecentPosts() {
             <div className="recent-posts">
                 <h1> Recent Posts:</h1>
                 <div className="recent-posts-container">
-                    <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
+                    <SpinnerIcon />
                 </div>
             </div>
         )
@@ -73,6 +75,15 @@ function RecentPosts() {
                             </div>
                         </a>
                     ))}
+                </div>
+            </div>
+        )
+    } else if (recentPostState === "failed") {
+        return(
+            <div className="recent-posts">
+                <h1> Recent Posts:</h1>
+                <div className="recent-posts-container">
+                    <h1>Failed to load recent posts!</h1>
                 </div>
             </div>
         )
