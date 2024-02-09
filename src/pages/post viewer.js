@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Topnav from "../global-components/topnav";
-import "../css/spinners.css";
+import SpinnerIcon from "../global-components/loader";
 import "../css/post view.css";
 import getCookieValue from "../scripts/get_username";
 import { get_token } from "../scripts/verify_token";
@@ -211,6 +211,8 @@ function Post() {
 
                 if (error.status === 404) {
                     setPostState('404');
+                } else {
+                    setPostState("failed")
                 }
             });
         }
@@ -220,7 +222,7 @@ function Post() {
     if (postState === "loading") {
         return(
             <div className="post-view-header post-loading">
-                <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
+                <SpinnerIcon />
             </div>
         );
     } else if (typeof postState === "object" && postState !== null) {
@@ -243,6 +245,14 @@ function Post() {
                 <p>The post you tried to access was not found!</p>
             </div>
         )
+    } else if (postState === "failed") {
+        return(
+            <div className="post-view-header post-loading">
+                <h1>Something Went Wrong</h1>
+                <p>We were unable to load the post</p>
+            </div>
+        )
+        
     }
 }
 
@@ -280,7 +290,11 @@ function Comments() {
             // Handle any errors
             console.error(error);
 
-            setCommentsState('404');
+            if (error.status === 404) {
+                setCommentsState('404');
+            } else {
+                setCommentsState("failed");
+            }
         });
 
     // eslint-disable-next-line
@@ -289,7 +303,7 @@ function Comments() {
     if (commentsState === "loading") {
         return(
             <div className="comments-viewer comment-center">
-                <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
+                <SpinnerIcon />
             </div>
         )
     } else if (Array.isArray(commentsState) && commentsState.length > 0) {
@@ -325,6 +339,12 @@ function Comments() {
                 <p>WOW! Nobody commented yet!</p>
             </div>
         ) 
+    } else if (commentsState === "failed") {
+        return(
+            <div className="comments-viewer comment-center">
+                <p>Failed to load comments!</p>
+            </div>
+        )
     }
 }
 

@@ -2,7 +2,7 @@ import Topnav from "../global-components/topnav";
 import "../css/search.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import "../css/spinners.css";
+import SpinnerIcon from "../global-components/loader";
 
 function SearchResults() {
     const [resultsState, setResultsState] = useState('loading');
@@ -27,9 +27,9 @@ function SearchResults() {
         fetch(`${support_url}/search/${query}`)
             .then(response => {
                 if (response.ok) {
-                return response.json(); // Convert response to JSON
+                    return response.json(); // Convert response to JSON
                 } else {
-                throw new Error('Request failed with status code: ' + response.status);
+                    throw new Error('Request failed with status code: ' + response.status);
                 }
             })
             .then(data => {
@@ -41,6 +41,7 @@ function SearchResults() {
             .catch(error => {
                 // Handle any errors
                 console.error(error);
+                setResultsState("failed");
             });
         }
         get_results();
@@ -50,7 +51,7 @@ function SearchResults() {
     if (resultsState === "loading") {
         return(
             <div className="search-results">
-                <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
+                <SpinnerIcon />
             </div>
         )
     } else if (Array.isArray(resultsState) && resultsState.length > 0) {
@@ -73,6 +74,13 @@ function SearchResults() {
                 <h1>We could not find anything!</h1>
             </div>
         )
+    } else if (resultsState === "failed") {
+        return(
+            <div className="search-results">
+                <h1>We couldn't load search results!</h1>
+            </div>
+        )
+        
     }
 }
 
