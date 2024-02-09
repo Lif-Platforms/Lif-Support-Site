@@ -6,6 +6,7 @@ import "./App.css";
 import Search from "./pages/search";
 import ViewPost from "./pages/post viewer";
 import NotFound from "./pages/404";
+import Footer from "./global-components/footer";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/search/:query" element={<Search />} />
         <Route path="/view_post/:post_id" element={<ViewPost />} />
       </Routes>
+      <Footer />
     </HashRouter>
   );
 }
