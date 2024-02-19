@@ -6,6 +6,8 @@ import "../css/post view.css";
 import getCookieValue from "../scripts/get_username";
 import { get_token } from "../scripts/verify_token";
 import { check_token } from "../scripts/verify_token";
+import EditIcon from "../assets/post viewer/edit_icon.png";
+import DeleteIcon from "../assets/post viewer/delete_icon.png";
 
 // Component for writing comments and answers
 function Writer({ state, setState }) {
@@ -168,8 +170,10 @@ function Controls({setWriterState}) {
     if (showControls) {
         return(
             <div className="controls">
-                <button onClick={handle_comment_open}>Comment</button>
-                <button onClick={handle_answer_open}>Answer</button>
+                <button className="type2"><img src={EditIcon} alt=""/></button>
+                <button className="type2"><img src={DeleteIcon} alt=""/></button>
+                <button onClick={handle_comment_open} className="type1">Comment</button>
+                <button onClick={handle_answer_open} className="type1">Answer</button>
             </div>
         );
     } else {

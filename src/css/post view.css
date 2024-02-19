@@ -57,12 +57,13 @@
 .controls {
     background-color: rgb(231, 231, 231);
     border-radius: 0.5em;
-    text-align: right;
+    display: flex;
+    justify-content: right;
     margin-top: 15px;
     padding: 10px;
 }
 
-.controls button {
+.controls .type1 {
     background: rgb(156,14,219);
     background: linear-gradient(90deg, rgba(156,14,219,1) 21%, rgba(255,0,183,1) 100%);
     color: white;
@@ -77,6 +78,27 @@
     font-weight: bold;
     margin-left: 10px;
     transition: 0.2s ease-in-out;
+}
+
+.controls .type2 {
+    background-color: rgb(192, 192, 192);
+    border-radius: 5px;
+    border: none;
+    margin-right: 10px;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 30px;
+    height: 30px;
+    box-sizing: border-box;
+    padding: 0;
+    display: inline-block;
+}
+
+.controls .type2 img {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    object-fit: contain;
 }
 
 .controls button:hover {
