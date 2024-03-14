@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import Topnav from "../global-components/topnav";
 import "../css/spinners.css";
@@ -10,13 +10,65 @@ import EditIcon from "../assets/post viewer/edit_icon.png";
 import DeleteIcon from "../assets/post viewer/delete_icon.png";
 
 // Component for writing comments and answers
-function Writer({ state, setState }) {
+function Writer({ state, setState, postState }) {
+    const postTitleRef = useRef();
+    const postBodyRef = useRef();
+    const postCommentRef = useRef();
+    const postAnswerRef = useRef();
+    const postSoftwareRef = useRef();
+    const postButtonRef = useRef();
+    const postFormRef = useRef();
+    const postStatusRef = useRef();
 
     // Retrieve the post id parameter from the URL
     const { post_id } = useParams();
 
+    // Update writer input values
+    useEffect(() => {
+        if (state === "edit") {
+            postTitleRef.current.value = postState.Title;
+            postBodyRef.current.value = postState.Content;
+            postSoftwareRef.current.value = postState.Software;
+
+        } else if (state !== "edit" && postCommentRef.current) {
+            postCommentRef.current.value = "";
+        }
+    }, [state])
+
     function handle_close() {
         setState('closed');
+    }
+
+    async function handle_edit() {
+        // Update button
+        postButtonRef.current.innerHTML = "Updating...";
+
+        // Gets auth information
+        const username = await getCookieValue();
+        const token = await get_token();
+
+        // Create request body
+        const requestBody = new FormData(postFormRef.current);
+
+        fetch(`${process.env.REACT_APP_SUPPORT_SERVER_URL}/edit_post/${postState.Id}`, {
+            method: "PUT",
+            headers: {
+                username: username,
+                token: token
+            },
+            body: requestBody
+        })
+        .then((response) => {
+            if (response.ok) {
+                window.location.reload();
+
+            } else {
+                throw new Error("Request failed! Status code: " + response.status);
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+        })
     }
 
     async function handle_comment() {
@@ -30,7 +82,7 @@ function Writer({ state, setState }) {
         const token = await get_token();
 
         // Gets comment
-        const comment = document.getElementById('comment').value; 
+        const comment = postCommentRef.current.value;
 
         const formData = new FormData();
         formData.append("comment", comment);
@@ -80,7 +132,7 @@ function Writer({ state, setState }) {
         const token = await get_token();
 
         // Gets answer
-        const answer = document.getElementById('answer').value; 
+        const answer = postAnswerRef.current.value;
     
         const formData = new FormData();
         formData.append("answer", answer);
@@ -123,7 +175,7 @@ function Writer({ state, setState }) {
         return(
             <div className="post-writer">
                 <h1>Share Your Thoughts</h1>
-                <input placeholder="Comment" type="text" id="comment"/>
+                <input placeholder="Comment" type="text" ref={postCommentRef} />
                 <button className="writer-post-button" id="writer-post" onClick={handle_comment}>Post</button>
                 <span className="writer-post-status" id="writer-post-status" />
                 <button className="writer-close-btn" onClick={handle_close}>&#10006;</button>
@@ -133,9 +185,26 @@ function Writer({ state, setState }) {
         return(
             <div className="post-writer">
                 <h1>Post Your Answer</h1>
-                <textarea placeholder="Answer..." id="answer" />
+                <textarea placeholder="Answer..." ref={postAnswerRef} />
                 <button className="writer-post-button" id="writer-post" onClick={handle_answer}>Post</button>
                 <span className="writer-post-status" id="writer-post-status" />
+                <button className="writer-close-btn" onClick={handle_close}>&#10006;</button>
+            </div>
+        )
+    } else if (state === "edit") {
+        return(
+            <div className="post-writer">
+                <h1>Edit Your Post</h1>
+                <form ref={postFormRef}>
+                    <input name="title" placeholder="Title" type="text" ref={postTitleRef} />
+                    <textarea name="content" placeholder="Post here..." ref={postBodyRef} />
+                    <select name="software" ref={postSoftwareRef}> 
+                        <option value="Ringer">Ringer</option> 
+                        <option value="Dayly">Dayly</option> 
+                    </select>
+                </form>
+                <button className="writer-post-button" ref={postButtonRef} onClick={() => handle_edit()}>Update</button>
+                <span className="writer-post-status" ref={postStatusRef} />
                 <button className="writer-close-btn" onClick={handle_close}>&#10006;</button>
             </div>
         )
@@ -170,7 +239,7 @@ function Controls({setWriterState}) {
     if (showControls) {
         return(
             <div className="controls">
-                <button className="type2"><img src={EditIcon} alt=""/></button>
+                <button className="type2" onClick={() => setWriterState("edit")}><img src={EditIcon} alt=""/></button>
                 <button className="type2"><img src={DeleteIcon} alt=""/></button>
                 <button onClick={handle_comment_open} className="type1">Comment</button>
                 <button onClick={handle_answer_open} className="type1">Answer</button>
@@ -236,7 +305,7 @@ function Post() {
                 <p style={{ whiteSpace: 'pre-line' }}>{postState.Content}</p>
                 <span className={postState.Software === "Ringer" ? "ringer-software" : postState.Software === "Dayly" ? "dayly-software" : "software"}>{postState.Software}</span>
                 <Controls setWriterState={setWriterState}/>
-                <Writer state={writerState} setState={setWriterState} />
+                <Writer state={writerState} setState={setWriterState} postState={postState} />
                 <img src={`${process.env.REACT_APP_AUTH_SERVER_URL}/get_pfp/${postState.Author}.png`} alt="" className="post-author-img" />
                 <span className="post-author">{postState.Author}</span>
             </div>
