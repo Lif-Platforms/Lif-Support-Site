@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Topnav from "../global-components/topnav";
 import "../css/spinners.css";
 import "../css/post view.css";
@@ -8,6 +8,7 @@ import { get_token } from "../scripts/verify_token";
 import { check_token } from "../scripts/verify_token";
 import EditIcon from "../assets/post viewer/edit_icon.png";
 import DeleteIcon from "../assets/post viewer/delete_icon.png";
+import ThreeDotSpinner from "../global-components/spinners";
 
 // Component for writing comments and answers
 function Writer({ state, setState, postState }) {
@@ -211,8 +212,9 @@ function Writer({ state, setState, postState }) {
     }
 }
 
-function Controls({setWriterState}) {
+function Controls({setWriterState, setDeletePostPopupShow, postState}) {
     const [showControls, setShowControls] = useState(false);
+    const [showEditControls, setShowEditControls] = useState(false);
 
     // Handles opening comment writer
     function handle_comment_open() {
@@ -232,6 +234,14 @@ function Controls({setWriterState}) {
             if (token_status) {
                 setShowControls(true);
             }
+
+            // Get username
+            const username = await getCookieValue();
+
+            // Check post author
+            if (postState !== "loading" && postState.Author === username) {
+                setShowEditControls(true);
+            }
         }
         handle_show_controls();
     })
@@ -239,8 +249,12 @@ function Controls({setWriterState}) {
     if (showControls) {
         return(
             <div className="controls">
-                <button className="type2" onClick={() => setWriterState("edit")}><img src={EditIcon} alt=""/></button>
-                <button className="type2"><img src={DeleteIcon} alt=""/></button>
+                {showEditControls ? (
+                    <div>
+                        <button className="type2" onClick={() => setWriterState("edit")}><img src={EditIcon} alt=""/></button>
+                        <button className="type2" onClick={() => setDeletePostPopupShow(true)}><img src={DeleteIcon} alt=""/></button>
+                    </div>
+                ): null}
                 <button onClick={handle_comment_open} className="type1">Comment</button>
                 <button onClick={handle_answer_open} className="type1">Answer</button>
             </div>
@@ -250,7 +264,7 @@ function Controls({setWriterState}) {
     }
 }
 
-function Post() {
+function Post({setDeletePostPopupShow}) {
     const [postState, setPostState] = useState('loading');
     const [writerState, setWriterState] = useState('closed')
 
@@ -290,8 +304,6 @@ function Post() {
         load_post();
     }, [post_id])
 
-    
-
     if (postState === "loading") {
         return(
             <div className="post-view-header post-loading">
@@ -304,7 +316,7 @@ function Post() {
                 <h1>{postState.Title}</h1>
                 <p style={{ whiteSpace: 'pre-line' }}>{postState.Content}</p>
                 <span className={postState.Software === "Ringer" ? "ringer-software" : postState.Software === "Dayly" ? "dayly-software" : "software"}>{postState.Software}</span>
-                <Controls setWriterState={setWriterState}/>
+                <Controls setWriterState={setWriterState} setDeletePostPopupShow={setDeletePostPopupShow} postState={postState} />
                 <Writer state={writerState} setState={setWriterState} postState={postState} />
                 <img src={`${process.env.REACT_APP_AUTH_SERVER_URL}/get_pfp/${postState.Author}.png`} alt="" className="post-author-img" />
                 <span className="post-author">{postState.Author}</span>
@@ -402,11 +414,85 @@ function Comments() {
     }
 }
 
+function DeletePostPopup({deletePostPopupShow, setDeletePostPopupShow}) {
+    const deleteButtonRef = useRef();
+    const cancelButtonRef = useRef();
+    const deleteStatusRef = useRef();
+    const [isLoading, setIsLoading] = useState(false);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (deleteButtonRef.current && cancelButtonRef.current) {
+            if (isLoading) {
+                deleteButtonRef.current.disabled = true;
+                cancelButtonRef.current.disabled = true;
+            } else {
+                deleteButtonRef.current.disabled = false;
+                cancelButtonRef.current.disabled = false;
+            }
+        }
+    }, [isLoading]);
+
+    // Retrieve the post id parameter from the URL
+    const { post_id } = useParams();
+
+    async function handle_post_delete() {
+        setIsLoading(true);
+
+        // Gets auth information
+        const username = await getCookieValue();
+        const token = await get_token();
+
+        fetch(`${process.env.REACT_APP_SUPPORT_SERVER_URL}/delete_post/${post_id}`, {
+            headers: {
+                username: username,
+                token: token
+            },
+            method: "DELETE"
+        })
+        .then((response) => {
+            if (response.ok) {
+                navigate("/");
+
+            } else{
+                throw new Error("Request failed with status code: " + response.status);
+            }
+        })
+        .catch(() => {
+            setIsLoading(false);
+            deleteStatusRef.current.innerHTML = "Something Went Wrong!";
+        })
+    }
+
+    if (deletePostPopupShow) {
+        return(
+            <div className="delete-post-popup-container">
+                <div className="delete-post-popup">
+                    <h1>Delete Post</h1>
+                    <p>Are you sure you want to delete this post?</p>
+                    <div className="popup-buttons">
+                        <button className="cancel-button" ref={cancelButtonRef} onClick={() => setDeletePostPopupShow(false)}>Cancel</button>
+                        <button className="delete-button" ref={deleteButtonRef} onClick={() => handle_post_delete()}>
+                            {isLoading ? <ThreeDotSpinner /> : "Delete"}
+                        </button>
+                    </div>
+                    <span className="delete-status" ref={deleteStatusRef} />
+                </div>
+            </div>
+        );
+    }
+}
+
 function ViewPost() {
+    // Toggle delete post popup
+    const [deletePostPopupShow, setDeletePostPopupShow] = useState(false);
+
     return(
         <div className="post-view-container">
             <Topnav />
-            <Post />
+            <DeletePostPopup deletePostPopupShow={deletePostPopupShow} setDeletePostPopupShow={setDeletePostPopupShow} />
+            <Post setDeletePostPopupShow={setDeletePostPopupShow} />
             <Comments />
         </div>
     );
