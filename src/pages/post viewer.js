@@ -1,20 +1,75 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Topnav from "../global-components/topnav";
 import SpinnerIcon from "../global-components/loader";
 import "../css/post view.css";
 import getCookieValue from "../scripts/get_username";
 import { get_token } from "../scripts/verify_token";
 import { check_token } from "../scripts/verify_token";
+import EditIcon from "../assets/post viewer/edit_icon.png";
+import DeleteIcon from "../assets/post viewer/delete_icon.png";
+import ThreeDotSpinner from "../global-components/spinners";
 
 // Component for writing comments and answers
-function Writer({ state, setState }) {
+function Writer({ state, setState, postState }) {
+    const postTitleRef = useRef();
+    const postBodyRef = useRef();
+    const postCommentRef = useRef();
+    const postAnswerRef = useRef();
+    const postSoftwareRef = useRef();
+    const postButtonRef = useRef();
+    const postFormRef = useRef();
+    const postStatusRef = useRef();
 
     // Retrieve the post id parameter from the URL
     const { post_id } = useParams();
 
+    // Update writer input values
+    useEffect(() => {
+        if (state === "edit") {
+            postTitleRef.current.value = postState.Title;
+            postBodyRef.current.value = postState.Content;
+            postSoftwareRef.current.value = postState.Software;
+
+        } else if (state !== "edit" && postCommentRef.current) {
+            postCommentRef.current.value = "";
+        }
+    }, [state])
+
     function handle_close() {
         setState('closed');
+    }
+
+    async function handle_edit() {
+        // Update button
+        postButtonRef.current.innerHTML = "Updating...";
+
+        // Gets auth information
+        const username = await getCookieValue();
+        const token = await get_token();
+
+        // Create request body
+        const requestBody = new FormData(postFormRef.current);
+
+        fetch(`${process.env.REACT_APP_SUPPORT_SERVER_URL}/edit_post/${postState.Id}`, {
+            method: "PUT",
+            headers: {
+                username: username,
+                token: token
+            },
+            body: requestBody
+        })
+        .then((response) => {
+            if (response.ok) {
+                window.location.reload();
+
+            } else {
+                throw new Error("Request failed! Status code: " + response.status);
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+        })
     }
 
     async function handle_comment() {
@@ -28,7 +83,7 @@ function Writer({ state, setState }) {
         const token = await get_token();
 
         // Gets comment
-        const comment = document.getElementById('comment').value; 
+        const comment = postCommentRef.current.value;
 
         const formData = new FormData();
         formData.append("comment", comment);
@@ -78,7 +133,7 @@ function Writer({ state, setState }) {
         const token = await get_token();
 
         // Gets answer
-        const answer = document.getElementById('answer').value; 
+        const answer = postAnswerRef.current.value;
     
         const formData = new FormData();
         formData.append("answer", answer);
@@ -121,7 +176,7 @@ function Writer({ state, setState }) {
         return(
             <div className="post-writer">
                 <h1>Share Your Thoughts</h1>
-                <input placeholder="Comment" type="text" id="comment"/>
+                <input placeholder="Comment" type="text" ref={postCommentRef} />
                 <button className="writer-post-button" id="writer-post" onClick={handle_comment}>Post</button>
                 <span className="writer-post-status" id="writer-post-status" />
                 <button className="writer-close-btn" onClick={handle_close}>&#10006;</button>
@@ -131,17 +186,35 @@ function Writer({ state, setState }) {
         return(
             <div className="post-writer">
                 <h1>Post Your Answer</h1>
-                <textarea placeholder="Answer..." id="answer" />
+                <textarea placeholder="Answer..." ref={postAnswerRef} />
                 <button className="writer-post-button" id="writer-post" onClick={handle_answer}>Post</button>
                 <span className="writer-post-status" id="writer-post-status" />
+                <button className="writer-close-btn" onClick={handle_close}>&#10006;</button>
+            </div>
+        )
+    } else if (state === "edit") {
+        return(
+            <div className="post-writer">
+                <h1>Edit Your Post</h1>
+                <form ref={postFormRef}>
+                    <input name="title" placeholder="Title" type="text" ref={postTitleRef} />
+                    <textarea name="content" placeholder="Post here..." ref={postBodyRef} />
+                    <select name="software" ref={postSoftwareRef}> 
+                        <option value="Ringer">Ringer</option> 
+                        <option value="Dayly">Dayly</option> 
+                    </select>
+                </form>
+                <button className="writer-post-button" ref={postButtonRef} onClick={() => handle_edit()}>Update</button>
+                <span className="writer-post-status" ref={postStatusRef} />
                 <button className="writer-close-btn" onClick={handle_close}>&#10006;</button>
             </div>
         )
     }
 }
 
-function Controls({setWriterState}) {
+function Controls({setWriterState, setDeletePostPopupShow, postState}) {
     const [showControls, setShowControls] = useState(false);
+    const [showEditControls, setShowEditControls] = useState(false);
 
     // Handles opening comment writer
     function handle_comment_open() {
@@ -161,6 +234,14 @@ function Controls({setWriterState}) {
             if (token_status) {
                 setShowControls(true);
             }
+
+            // Get username
+            const username = await getCookieValue();
+
+            // Check post author
+            if (postState !== "loading" && postState.Author === username) {
+                setShowEditControls(true);
+            }
         }
         handle_show_controls();
     })
@@ -168,8 +249,14 @@ function Controls({setWriterState}) {
     if (showControls) {
         return(
             <div className="controls">
-                <button onClick={handle_comment_open}>Comment</button>
-                <button onClick={handle_answer_open}>Answer</button>
+                {showEditControls ? (
+                    <div>
+                        <button className="type2" onClick={() => setWriterState("edit")}><img src={EditIcon} alt=""/></button>
+                        <button className="type2" onClick={() => setDeletePostPopupShow(true)}><img src={DeleteIcon} alt=""/></button>
+                    </div>
+                ): null}
+                <button onClick={handle_comment_open} className="type1">Comment</button>
+                <button onClick={handle_answer_open} className="type1">Answer</button>
             </div>
         );
     } else {
@@ -177,7 +264,7 @@ function Controls({setWriterState}) {
     }
 }
 
-function Post() {
+function Post({setDeletePostPopupShow}) {
     const [postState, setPostState] = useState('loading');
     const [writerState, setWriterState] = useState('closed')
 
@@ -232,8 +319,8 @@ function Post() {
                 <p style={{ whiteSpace: 'pre-line' }}>{postState.Content}</p>
                 <span className="post-date">Posted: {postState.Date ? postState.Date : "Not Available"}</span>
                 <span className={postState.Software === "Ringer" ? "ringer-software" : postState.Software === "Dayly" ? "dayly-software" : "software"}>{postState.Software}</span>
-                <Controls setWriterState={setWriterState}/>
-                <Writer state={writerState} setState={setWriterState} />
+                <Controls setWriterState={setWriterState} setDeletePostPopupShow={setDeletePostPopupShow} postState={postState} />
+                <Writer state={writerState} setState={setWriterState} postState={postState} />
                 <img src={`${process.env.REACT_APP_AUTH_SERVER_URL}/get_pfp/${postState.Author}.png`} alt="" className="post-author-img" />
                 <span className="post-author">{postState.Author}</span>
             </div>
@@ -348,11 +435,85 @@ function Comments() {
     }
 }
 
+function DeletePostPopup({deletePostPopupShow, setDeletePostPopupShow}) {
+    const deleteButtonRef = useRef();
+    const cancelButtonRef = useRef();
+    const deleteStatusRef = useRef();
+    const [isLoading, setIsLoading] = useState(false);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (deleteButtonRef.current && cancelButtonRef.current) {
+            if (isLoading) {
+                deleteButtonRef.current.disabled = true;
+                cancelButtonRef.current.disabled = true;
+            } else {
+                deleteButtonRef.current.disabled = false;
+                cancelButtonRef.current.disabled = false;
+            }
+        }
+    }, [isLoading]);
+
+    // Retrieve the post id parameter from the URL
+    const { post_id } = useParams();
+
+    async function handle_post_delete() {
+        setIsLoading(true);
+
+        // Gets auth information
+        const username = await getCookieValue();
+        const token = await get_token();
+
+        fetch(`${process.env.REACT_APP_SUPPORT_SERVER_URL}/delete_post/${post_id}`, {
+            headers: {
+                username: username,
+                token: token
+            },
+            method: "DELETE"
+        })
+        .then((response) => {
+            if (response.ok) {
+                navigate("/");
+
+            } else{
+                throw new Error("Request failed with status code: " + response.status);
+            }
+        })
+        .catch(() => {
+            setIsLoading(false);
+            deleteStatusRef.current.innerHTML = "Something Went Wrong!";
+        })
+    }
+
+    if (deletePostPopupShow) {
+        return(
+            <div className="delete-post-popup-container">
+                <div className="delete-post-popup">
+                    <h1>Delete Post</h1>
+                    <p>Are you sure you want to delete this post?</p>
+                    <div className="popup-buttons">
+                        <button className="cancel-button" ref={cancelButtonRef} onClick={() => setDeletePostPopupShow(false)}>Cancel</button>
+                        <button className="delete-button" ref={deleteButtonRef} onClick={() => handle_post_delete()}>
+                            {isLoading ? <ThreeDotSpinner /> : "Delete"}
+                        </button>
+                    </div>
+                    <span className="delete-status" ref={deleteStatusRef} />
+                </div>
+            </div>
+        );
+    }
+}
+
 function ViewPost() {
+    // Toggle delete post popup
+    const [deletePostPopupShow, setDeletePostPopupShow] = useState(false);
+
     return(
         <div className="post-view-container">
             <Topnav />
-            <Post />
+            <DeletePostPopup deletePostPopupShow={deletePostPopupShow} setDeletePostPopupShow={setDeletePostPopupShow} />
+            <Post setDeletePostPopupShow={setDeletePostPopupShow} />
             <Comments />
         </div>
     );

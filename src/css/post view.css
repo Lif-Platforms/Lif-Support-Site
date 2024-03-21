@@ -63,12 +63,13 @@
 .controls {
     background-color: rgb(231, 231, 231);
     border-radius: 0.5em;
-    text-align: right;
+    display: flex;
+    justify-content: right;
     margin-top: 15px;
     padding: 10px;
 }
 
-.controls button {
+.controls .type1 {
     background: rgb(156,14,219);
     background: linear-gradient(90deg, rgba(156,14,219,1) 21%, rgba(255,0,183,1) 100%);
     color: white;
@@ -83,6 +84,27 @@
     font-weight: bold;
     margin-left: 10px;
     transition: 0.2s ease-in-out;
+}
+
+.controls .type2 {
+    background-color: rgb(192, 192, 192);
+    border-radius: 5px;
+    border: none;
+    margin-right: 10px;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 30px;
+    height: 30px;
+    box-sizing: border-box;
+    padding: 0;
+    display: inline-block;
+}
+
+.controls .type2 img {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    object-fit: contain;
 }
 
 .controls button:hover {
@@ -144,7 +166,9 @@
     padding: 5px;
     border-radius: 0.5em;
     font-family: Arial, Helvetica, sans-serif;
-    width: 50%;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
     border: solid black 1px;
 }
 
@@ -152,13 +176,21 @@
     padding: 10px;
     border-radius: 0.5em;
     font-family: Arial, Helvetica, sans-serif;
-    width: 95%;
+    box-sizing: border-box;
+    width: 100%;
     border: solid black 1px;
     resize: unset;
+    margin-bottom: 10px;
     height: 200px;
     margin-left: auto;
     margin-right: auto;
     display: block;
+}
+
+.post-writer select {
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 0.5em;
 }
 
 .writer-close-btn {
@@ -277,4 +309,72 @@
     color: red;
     display: inline-block;
     margin-right: 20px;
+}
+
+.delete-post-popup-container {
+    background-color: rgba(0, 0, 0, 0.37);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 997;
+}
+
+.delete-post-popup {
+    text-align: center;
+    background-color: white;
+    border-radius: 0.5em;
+    box-shadow: 0px 0px 20px black;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px;
+}
+
+.popup-buttons {
+    display: flex;
+    height: 40px;
+    justify-content: center;
+}
+
+.delete-post-popup button {
+    opacity: 1;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.delete-post-popup button:disabled {
+    cursor: default;
+}
+
+.delete-post-popup button:hover{
+    opacity: 0.5;
+}
+
+.delete-post-popup .cancel-button {
+    display: inline-block;
+    margin-right: 5px;
+    padding: 10px;
+    background-color: #DCECFF;
+    border: none;
+    border-radius: 0.5em;
+}
+
+.delete-post-popup .delete-button {
+    display: inline-block;
+    padding: 10px;
+    margin-left: 5px;
+    background-color: #ff0000;
+    border: none;
+    color: white;
+    border-radius: 0.5em;
+}
+
+.delete-post-popup .delete-status {
+    text-align: center;
+    color: red;
+    margin-top: 5px;
+    display: block;
 }
