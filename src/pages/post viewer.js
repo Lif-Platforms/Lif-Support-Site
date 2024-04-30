@@ -51,7 +51,7 @@ function Writer({ state, setState, postState }) {
         // Create request body
         const requestBody = new FormData(postFormRef.current);
 
-        fetch(`${process.env.REACT_APP_SUPPORT_SERVER_URL}/edit_post/${postState.Id}`, {
+        fetch(`${process.env.REACT_APP_SUPPORT_SERVER_URL}/edit_post/${post_id}`, {
             method: "PUT",
             headers: {
                 username: username,
