@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import getCookieValue from '../scripts/get_username';
 import { useEffect, useState } from "react";
 import log_out from "../scripts/utils/log out";
+import PlusIcon from "../assets/global/plus-icon.svg";
 
 function AccountPanel({ show }) {
     const [username, setUsername] = useState(null);
@@ -106,17 +107,16 @@ function Topnav() {
         <nav>
             <div className="topnav-logo">
                 <a href="/"><img src={Logo} alt="Lif Logo" /></a>
+                <h1>Support</h1>
             </div>
-            <div className="topnav-search">
-                <img src={MagnifyingGlass} alt="Search Icon" />
-                <input type="text" placeholder="Search" onKeyDown={handleKeyPress} id="search-box" style={{border: "none"}} /> 
-            </div>  
             <div className="topnav-post">
-                <button onClick={handle_post_button}>Post</button>
+                <button onClick={handle_post_button}>
+                    <img src={PlusIcon} alt="" />
+                </button>
             </div>
             <div className="topnav-account">
                 {/* eslint-disable-next-line */}
-                <a onClick={handle_account_panel}><img src={url} alt="Profile Pic" /></a>
+                <a onClick={handle_account_panel}><img src={url} alt="" /></a>
                 <AccountPanel show={panelShow} />
             </div>
         </nav>

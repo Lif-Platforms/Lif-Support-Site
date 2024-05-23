@@ -4,143 +4,73 @@ nav {
     top: 0;
     width: 100%;
     background-color: white;
-    box-shadow: 5px 5px 20px rgb(160, 160, 160);
+    border-bottom: 1px solid #979797;
     margin: auto;
     z-index: 998;
+}
+
+.topnav-logo {
+    display: flex;
 }
 
 .topnav-logo img {
     padding: 10px;
     width: 100px;
+    display: block;
+}
+
+.topnav-logo h1 {
+    display: block;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 5px;
 }
 
 .topnav-account {
     margin-top: auto;
     margin-bottom: auto;
     margin-right: 50px;
-    margin-left: 50px;
+    margin-left: 20px;
     position: relative;
-}
-
-.topnav-account img:hover {
-    transform: scale(1.1);
+    cursor: pointer;
 }
 
 .topnav-account img {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    border: solid rgb(170, 170, 170);
     border-width: 3px;
     transition: ease-in-out 0.2s;
-}
-
-.topnav-account img:active {
-    transform: scale(1);
-}
-
-.topnav-search {
-    background-color: rgb(233, 232, 232);
-    border-radius: 1em;
-    height: min-content;
-    margin: auto;
-    padding: 5px;
-    display: flex;
-    width: 50%;
-    transition: 0.3s;
-    border: 1px solid rgb(233, 232, 232);
-}
-
-.topnav-search:hover {
-    background-color: rgb(233, 232, 232);
-    border-radius: 1em;
-    height: min-content;
-    margin: auto;
-    padding: 5px;
-    display: flex;
-    width: 50%;
-    box-shadow: 3px 3px 10px rgb(201, 201, 201);
-    border: 1px solid black;
-    transition: 0.3s;
-}
-
-.topnav-search input:focus > .topnav-search div {
-    background-color: rgb(233, 232, 232);
-    border-radius: 1em;
-    height: min-content;
-    margin: auto;
-    padding: 5px;
-    display: flex;
-    width: 50%;
-    box-shadow: 3px 3px 10px rgb(201, 201, 201);
-    border: 1px solid black;
-    transition: 0.3s;
-    border: none;
-}
-
-.topnav-search input {
-    background-color: transparent;
-    border: none;
-    margin: auto;
-    color: black;
-    margin-left: 10px;
-    width: 100%;
-}
-
-.topnav-search input:focus {
-    outline: none;
 }
 
 .topnav-post {
     margin-top: auto;
     margin-bottom: auto;
+    margin-left: auto;
 }
 
 .topnav-post button {
-    background: rgb(156,14,219);
-    background: linear-gradient(90deg, rgba(156,14,219,1) 21%, rgba(255,0,183,1) 100%);
-    color: white;
+    background-color: #DCECFF;
     border: none;
-    border-radius: 1em;
-    font-size: x-large;
-    padding: 5px;
-    padding-left: 30px;
-    padding-right: 30px;
+    border-radius: 50%;
+    padding: 15px;
     opacity: 1;
-    transition: 0.3s;
-    font-weight: bold;
+    transition: 0.3s ease-in-out;
+    margin: auto;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
+
+.topnav-post button img {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 .topnav-post button:hover {
-    background: rgb(156,14,219);
-    background: linear-gradient(90deg, rgba(156,14,219,1) 21%, rgba(255,0,183,1) 100%);
-    color: white;
-    border: none;
-    border-radius: 1em;
-    font-size: x-large;
-    padding: 5px;
-    padding-left: 30px;
-    padding-right: 30px;
-    opacity: 0.60;
-    transition: 0.3s;
-    font-weight: bold;
+    background-color: #eef6ff;
 }   
-
-.topnav-post button:active {
-    background: rgb(156,14,219);
-    background: linear-gradient(90deg, rgba(156,14,219,1) 21%, rgba(255,0,183,1) 100%);
-    color: white;
-    border: none;
-    border-radius: 1em;
-    font-size: x-large;
-    padding: 5px;
-    padding-left: 30px;
-    padding-right: 30px;
-    opacity: 0.60;
-    transition: 0.3s;
-    transform: scale(0.90);
-    font-weight: bold;
-}
 
 .account-panel {
     position: absolute;
