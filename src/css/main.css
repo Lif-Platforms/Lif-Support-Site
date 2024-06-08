@@ -15,7 +15,7 @@
 
 .recent-posts-container {
     text-align: center;
-    padding-bottom: 20px;
+    padding: 20px;
     display: block;
 }
 
@@ -24,55 +24,64 @@
 }
 
 .post {
-    width: 95%;
-    background-color: rgb(228, 228, 228);
-    border-radius: 1em;
-    border: solid rgb(228, 228, 228) 1px;
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 1200px;
+    border-top: 1px solid black;
     padding: 20px;
     text-align: left;
     display: block;
     margin: 30px auto;
-    transition: 0.3s ease-in-out;
     color: black;
     word-wrap: break-word;
-}
-
-.post:hover {
-    background-color: white;
-    border: solid black 1px;
+    cursor: pointer;
 }
 
 .post h1 {
     text-indent: 0;
 }
 
-@media screen and (max-width: 1400px) {
-    .post {
-        width: 90%;
-    }
+.lif-logo {
+    height: inherit;
+    width: 250px;
+    margin: auto;
+    display: block;
 }
 
-@media screen and (max-width: 600px) {
-    .post {
-        width: 85%;
-    }
+.search-box {
+    background-color: #DCDCDC;
+    border-radius: 0.7em;
+    display: flex;
+    justify-content: left;
+    padding: 5px;
+    gap: 10px;
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
 }
 
-@media screen and (max-width: 400px) {
-    .post {
-        width: 80%;
-    }
+.search-box img {
+    width: 30px;
+    height: inherit;
+    display: block;
+}
+
+.search-box input {
+    width: 100%;
+    box-sizing: border-box;
+    background-color: transparent;
+    color: black;
+    border: none;
 }
 
 @media screen and (max-width: 700px) {
-    .header img {
-        margin-top: 20px;
+    .lif-logo {
+        margin-top: 30px;
     }
 }
 
-@media screen and (max-width: 600px) {
-    .header img {
-        width: 100%;
-        margin: 50px 5px 0;
+@media screen and (max-width: 500px) {
+    .lif-logo {
+        margin-top: 50px;
     }
 }
