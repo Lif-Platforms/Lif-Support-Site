@@ -29,6 +29,7 @@
     padding: 20px;
     margin-top: 20px;
     transition: 0.3s;
+    word-wrap: break-word;
 }
 
 .search-item:hover {
