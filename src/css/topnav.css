@@ -49,20 +49,8 @@ nav {
 
 @media screen and (max-width: 700px) {
     .topnav-account {
-        margin-left: 20px;
         margin-right: 20px;
     }
-
-    .topnav-account img {
-        width: 30px;
-        height: 30px;
-    }
-
-    .topnav-post button {
-        padding: 3px 10px !important;
-        font-size: medium;
-    }
-
     .topnav-post button:active {
         padding: 3px 10px !important;
         font-size: medium;
