@@ -3,6 +3,7 @@ import MagnifyingGlass from "../assets/global/magnifying-glass.png";
 import "../css/topnav.css";
 import { useNavigate } from "react-router-dom";
 import getCookieValue from '../scripts/get_username';
+import React from 'react';
 import { useEffect, useState } from "react";
 import log_out from "../scripts/utils/log out";
 import close_icon from '../assets/global/close-icon.png';
@@ -148,13 +149,15 @@ function Topnav() {
                 <h1>Support</h1>
             </div>
             <div className="topnav-post">
-                <button onClick={() => handle_post_button}>
+                <button onClick={() => handle_post_button()}>
                     <img src={PlusIcon} alt="" />
                 </button>
             </div>
             <div className="topnav-account" id="topnav-account">
                 {/* eslint-disable-next-line */}
-                <a onClick={() => handle_account_panel}><img src={url} alt="" /></a>
+                <a onClick={() => handle_account_panel()}>
+                    <img src={url} alt="" />
+                </a>
                 <AccountPanel show={panelShow} />
             </div>
         </nav>
