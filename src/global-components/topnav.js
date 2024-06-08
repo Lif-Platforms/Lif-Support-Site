@@ -3,7 +3,7 @@ import MagnifyingGlass from "../assets/global/magnifying-glass.png";
 import "../css/topnav.css";
 import { useNavigate } from "react-router-dom";
 import getCookieValue from '../scripts/get_username';
-import React from 'react';
+import React from "react";
 import { useEffect, useState } from "react";
 import log_out from "../scripts/utils/log out";
 import close_icon from '../assets/global/close-icon.png';
