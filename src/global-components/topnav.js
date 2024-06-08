@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import getCookieValue from '../scripts/get_username';
 import { useEffect, useState } from "react";
 import log_out from "../scripts/utils/log out";
-import PlusIcon from "../assets/global/plus-icon.svg";
 import close_icon from '../assets/global/close-icon.png';
+import PlusIcon from "../assets/global/plus-icon.svg";
 
 function AccountPanel({ show }) {
     const [username, setUsername] = useState(null);
