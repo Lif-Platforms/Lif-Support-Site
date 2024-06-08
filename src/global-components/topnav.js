@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import getCookieValue from '../scripts/get_username';
 import { useEffect, useState } from "react";
 import log_out from "../scripts/utils/log out";
+import close_icon from '../assets/global/close-icon.png';
 
 function AccountPanel({ show }) {
     const [username, setUsername] = useState(null);
@@ -63,10 +64,74 @@ function AccountPanel({ show }) {
     return null;
 }
 
+// Component to compact search box
+function SearchBoxCompact({ searchBoxOpen, setSearchBoxOpen}) {
+    const navigate = useNavigate();
+
+    // Modify the styles of the post and avatar buttons to hide them
+    // when the search bar is open
+    useEffect(() => {
+        const topnav_account = document.getElementById('topnav-account');
+        const topnav_post = document.getElementById('topnav-post');
+
+        if (searchBoxOpen === true) {
+            topnav_post.style.display = 'none';
+            topnav_account.style.display = 'none';
+        } else {
+            topnav_post.style.display = 'initial';
+            topnav_account.style.display = 'initial';
+        }
+    }, [searchBoxOpen]);
+
+    // function for redirecting to search page with search query
+    function handleKeyPress(event) {
+        if (event.key === 'Enter') {
+            // Gets the query from the search box
+            const search_box = document.getElementById('search-box');
+            const query = search_box.value; 
+
+            // Navigates to search page 
+            navigate(`/search/${query}`);
+        }
+      }
+
+    if (searchBoxOpen === true) {
+        return(
+            <div className="topnav-search-open">
+                <img src={MagnifyingGlass} alt="Search Icon" />
+                <input type="text" placeholder="Search" onKeyDown={handleKeyPress} id="search-box" />
+                <img src={close_icon} alt="" onClick={() => setSearchBoxOpen(false)} className="topnav-close-button"/>
+            </div>
+        );
+    } else {
+        return(
+            <div className="topnav-search" onClick={() => setSearchBoxOpen(true)}>
+                <img src={MagnifyingGlass} alt="Search Icon" />
+                <span>Search</span>
+            </div>
+        );
+    }
+}
+
 function Topnav() {
     const [username, setUsername] = useState('');
     const navigate = useNavigate();
     const [panelShow, setPanelShow] = useState(false);
+
+    // Store the current window width in use state variable
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    // Store the mode of the post button
+    // Used for optimizing the button for smaller screens
+    // Possible modes are "full" and "small"
+    const [postButtonMode, setPostButtonMode] = useState('full');
+
+    // Store the mode of the search bar
+    // Available modes are "full" and "compact"
+    const [searchBoxMode, setSearchBoxMode] = useState('full');
+
+    // Store the open/close state of compact search box
+    const [searchBoxOpen, setSearchBoxOpen] = useState(false);
 
     // Auth server url
     const auth_url = process.env.REACT_APP_AUTH_SERVER_URL;
@@ -102,21 +167,61 @@ function Topnav() {
         setPanelShow(!panelShow);
     }
 
+    // Event listener for window resize
+    // Used for optimizing the top nav when the page is resized
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+      
+        window.addEventListener('resize', handleResize);
+
+        // Remove event listener when component is unmounted
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, [])
+
+    // Optimize post button based on window width
+    useEffect(() => {
+        if (windowWidth <= 900) {
+            setPostButtonMode('small');
+
+        } else {
+            setPostButtonMode('full')
+        }
+    }, [windowWidth])
+
+    // Optimize search box based on window width
+    useEffect(() => {
+        if (windowWidth <= 550) {
+            setSearchBoxMode('compact');
+        } else {
+            setSearchBoxMode('full');
+        }
+
+    }, [windowWidth])
+
     return(
         <nav>
             <div className="topnav-logo">
                 <a href="/"><img src={Logo} alt="Lif Logo" /></a>
             </div>
-            <div className="topnav-search">
-                <img src={MagnifyingGlass} alt="Search Icon" />
-                <input type="text" placeholder="Search" onKeyDown={handleKeyPress} id="search-box" style={{border: "none"}} /> 
-            </div>  
-            <div className="topnav-post">
-                <button onClick={handle_post_button}>Post</button>
+            {searchBoxMode === "full" ? (
+                <div className="topnav-search">
+                    <img src={MagnifyingGlass} alt="Search Icon" />
+                    <input type="text" placeholder="Search" onKeyDown={handleKeyPress} id="search-box" style={{border: "none"}} /> 
+                </div>  
+            ) : (
+                <SearchBoxCompact searchBoxOpen={searchBoxOpen} setSearchBoxOpen={setSearchBoxOpen} />
+            )}
+            
+            <div className="topnav-post" id="topnav-post">
+                <button onClick={handle_post_button}>{postButtonMode === "full" ? "Post" : "+"}</button>
             </div>
-            <div className="topnav-account">
+            <div className="topnav-account" id="topnav-account">
                 {/* eslint-disable-next-line */}
-                <a onClick={handle_account_panel}><img src={url} alt="Profile Pic" /></a>
+                <a onClick={handle_account_panel}><img src={url} alt="" /></a>
                 <AccountPanel show={panelShow} />
             </div>
         </nav>

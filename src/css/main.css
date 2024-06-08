@@ -5,6 +5,8 @@
 
 .recent-posts {
     margin-top: 50px;
+    display: block;
+    width: 100%;
 }
 
 .recent-posts h1 {
@@ -32,6 +34,7 @@
     margin: 30px auto;
     transition: 0.3s ease-in-out;
     color: black;
+    word-wrap: break-word;
 }
 
 .post:hover {
@@ -41,4 +44,35 @@
 
 .post h1 {
     text-indent: 0;
+}
+
+@media screen and (max-width: 1400px) {
+    .post {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .post {
+        width: 85%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .post {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .header img {
+        margin-top: 20px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .header img {
+        width: 100%;
+        margin: 50px 5px 0;
+    }
 }

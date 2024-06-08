@@ -39,6 +39,39 @@ nav {
     transform: scale(1);
 }
 
+@media screen and (max-width: 700px) {
+    .topnav-account {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    .topnav-account img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .topnav-post button {
+        padding: 3px 10px !important;
+        font-size: medium;
+    }
+
+    .topnav-post button:active {
+        padding: 3px 10px !important;
+        font-size: medium;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .topnav-account {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .topnav-logo img {
+        width: 80px;
+    }
+}
+
 .topnav-search {
     background-color: rgb(233, 232, 232);
     border-radius: 1em;
@@ -91,6 +124,56 @@ nav {
     outline: none;
 }
 
+@media screen and (max-width: 550px) {
+    .topnav-search {
+        width: max-content;
+        padding: 3px;
+        transition: none;
+    }
+
+    .topnav-search:active {
+        width: max-content;
+        padding: 3px;
+    }
+
+    .topnav-search span {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+}
+
+.topnav-search-open {
+    background-color: rgb(233, 232, 232);
+    border-radius: 1em;
+    height: min-content;
+    margin: auto;
+    padding: 5px;
+    display: flex;
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    width: 50%;
+    transform: translateX(-20%);
+    border: 1px solid rgb(233, 232, 232);
+}
+
+.topnav-search-open input {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    margin: auto;
+    color: black;
+    margin-left: 10px;
+    width: 100%;
+}
+
+.topnav-close-button {
+    width: 15px;
+    height: 15px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
 .topnav-post {
     margin-top: auto;
     margin-bottom: auto;
@@ -140,6 +223,16 @@ nav {
     transition: 0.3s;
     transform: scale(0.90);
     font-weight: bold;
+}
+
+@media screen and (max-width: 900px) {
+    .topnav-post button {
+        padding: 5px 13px;
+    }
+
+    .topnav-post button:active {
+        padding: 5px 13px;
+    }
 }
 
 .account-panel {

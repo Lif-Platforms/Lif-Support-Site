@@ -5,13 +5,31 @@
 }
 
 .post-form {
-    width: 50%;
+    width: 700px;
+    display: block;
     box-shadow: 5px 5px 20px rgb(112, 111, 111);
     font-family: Arial, Helvetica, sans-serif;
     padding: 30px;
     border-radius: 1em;
+    transition: 0.2s ease-in-out;
     animation-name: form-animation;
     animation-duration: 0.5s;
+}
+
+@media screen and (max-width: 1000px) {
+    .post-form {
+        margin-top: 80px !important;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .post-form {
+        box-shadow: none;
+        width: 100%;
+        padding: 0px;
+        animation-name: form-animation-mobile;
+        animation-duration: 0.5s;
+    }
 }
 
 .post-header {
@@ -114,6 +132,17 @@
     100% {
         transform: translateY(0);
         opacity: 1;
+    }
+}
+
+@keyframes form-animation-mobile {
+    0% { 
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
     }
 }
 
