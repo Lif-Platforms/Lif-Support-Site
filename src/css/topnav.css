@@ -51,12 +51,12 @@ nav {
     }
 
     .topnav-post button {
-        padding: 3px 10px 3px 10px !important;
+        padding: 3px 10px !important;
         font-size: medium;
     }
 
     .topnav-post button:active {
-        padding: 3px 10px 3px 10px !important;
+        padding: 3px 10px !important;
         font-size: medium;
     }
 }
@@ -130,10 +130,12 @@ nav {
         padding: 3px;
         transition: none;
     }
+
     .topnav-search:active {
         width: max-content;
         padding: 3px;
     }
+
     .topnav-search span {
         margin-left: 5px;
         margin-right: 5px;
@@ -225,10 +227,11 @@ nav {
 
 @media screen and (max-width: 900px) {
     .topnav-post button {
-        padding: 5px 13px 5px 13px;
+        padding: 5px 13px;
     }
+
     .topnav-post button:active {
-        padding: 5px 13px 5px 13px;
+        padding: 5px 13px;
     }
 }
 
