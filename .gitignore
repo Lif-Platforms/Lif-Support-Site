@@ -11,6 +11,9 @@
 # production
 /build
 
+# Sentry
+.sentryclirc
+
 # misc
 .DS_Store
 .env.local
