@@ -1,7 +1,7 @@
 import Topnav from "../global-components/topnav";
 import "../css/search.css";
-import { useNavigate, useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
 import SpinnerIcon from "../global-components/loader";
 
 function SearchResults() {
@@ -16,15 +16,21 @@ function SearchResults() {
 
     // Retrieve the query parameter from the URL
     const { query } = useParams();
+    const { filters } = useParams();
 
     // Gets the search results
     useEffect(() => {
         async function get_results() {
 
         // Backend url
-        const support_url = process.env.REACT_APP_SUPPORT_SERVER_URL;
+        let url = `${process.env.REACT_APP_SUPPORT_SERVER_URL}/search/${query}`;
 
-        fetch(`${support_url}/search/${query}`)
+        // Check if filters were supplied
+        if (filters) {
+            url += `?filters=${filters}`;
+        }
+
+        fetch(url)
             .then(response => {
                 if (response.ok) {
                     return response.json(); // Convert response to JSON
@@ -84,6 +90,81 @@ function SearchResults() {
     }
 }
 
+function SearchFilters() {
+    const ringerCheckBoxRef = useRef();
+    const daylyCheckBoxRef = useRef();
+
+    const { filters } = useParams();
+    const { query } = useParams();
+
+    // Fill in selected search filters
+    useEffect(() => {
+        // Check if filters were provided
+        if (filters) {
+            // Parse filers
+            const search_filters = filters.split(",");
+
+            // Reset filters
+            ringerCheckBoxRef.current.checked = false;
+            daylyCheckBoxRef.current.checked = false;
+
+            // Select filters
+            search_filters.forEach((filter) => {
+                if (filter === "Ringer") {
+                    ringerCheckBoxRef.current.checked = true;
+
+                } else if (filter === "Dayly") {
+                    daylyCheckBoxRef.current.checked = true;
+                }
+            })
+
+        } else {
+            // Select all if no filters provided
+            ringerCheckBoxRef.current.checked = true;
+            daylyCheckBoxRef.current.checked = true;
+        }
+    }, [filters]);
+
+    const navigate = useNavigate();
+
+    function handle_apply() {
+        let filters = "";
+
+        const ringer_filter = ringerCheckBoxRef.current;
+        const dayly_filter = daylyCheckBoxRef.current;
+
+        console.log(ringer_filter.checked)
+        console.log(dayly_filter.checked)
+
+        if (ringer_filter.checked) {
+            filters += "Ringer,";
+        }
+
+        if (dayly_filter.checked) {
+            filters += "Dayly,";
+        }
+
+        console.log(filters)
+
+        // Apply filters
+        navigate(`/search/${query}/${filters}`);
+        window.location.reload();
+    }
+
+    return(
+        <div className="search-filters">
+            <span>Software:</span>
+            <input ref={ringerCheckBoxRef} type="checkbox" id="Ringer" name="Ringer" value="Ringer" />
+            <label for="Ringer">Ringer</label>
+            <input ref={daylyCheckBoxRef} type="checkbox" name="Dayly" value="Dayly" id="Dayly" />
+            <label for="Dayly">Dayly</label>
+            <a onClick={() => handle_apply()}>Apply Filters</a>
+        </div>
+    );
+
+    
+}
+
 function Search() {
     // Retrieve the query parameter from the URL
     const { query } = useParams();
@@ -93,7 +174,8 @@ function Search() {
             <Topnav />
             <div className="search-page">
                 <h1 className="search-query">Search Results For: "{query}"</h1>
-                <SearchResults/>
+                <SearchFilters />
+                <SearchResults />
             </div>
         </div>
     )

@@ -29,6 +29,7 @@
     padding: 20px;
     margin-top: 20px;
     transition: 0.3s;
+    word-wrap: break-word;
 }
 
 .search-item:hover {
@@ -67,4 +68,19 @@
     border-radius: 0.5em;
     font-weight: bold;
     color: white;
+}
+
+.search-filters {
+    margin-left: 20px;
+}
+
+.search-filters span {
+    font-weight: bold;
+}
+
+.search-filters a {
+    margin-left: 10px;
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
 }

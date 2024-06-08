@@ -16,7 +16,7 @@ function App() {
         <Route exact path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
         <Route path="/new_post" element={<NewPost />} />
-        <Route path="/search/:query" element={<Search />} />
+        <Route path="/search/:query/:filters?" element={<Search />} />
         <Route path="/view_post/:post_id" element={<ViewPost />} />
       </Routes>
       <Footer />
