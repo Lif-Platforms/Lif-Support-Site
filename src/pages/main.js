@@ -2,15 +2,35 @@ import Topnav from "../global-components/topnav";
 import Logo from "../assets/global/Lif-Logo.png";
 import "../css/main.css";
 import "../css/spinners.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom/dist";
 import SpinnerIcon from "../global-components/loader";
+import SearchIcon from "../assets/index/search-icon.svg";
 
 function Title() {
+    const searchInputRef = useRef();
+
+    const navigate = useNavigate();
+
+    // Navigate to search page whe user presses enter
+    function handle_key_press(event) {
+        if (event.key === "Enter") {
+            // Get search query from input
+            const query = searchInputRef.current.value;
+
+            // Navigate to search page
+            navigate(`/search/${query}`);
+        }
+    }
+
     return(
         <div className="header">
-            <img src={Logo} alt="Lif Logo" />
+            <img className="lif-logo" src={Logo} alt="Lif Logo" />
             <h1>How Can We Help?</h1>
+            <div className="search-box">
+                <img src={SearchIcon} alt="" />
+                <input ref={searchInputRef} onKeyDown={handle_key_press} placeholder="Search Support" type="search" />
+            </div>
         </div>
     )
 }
