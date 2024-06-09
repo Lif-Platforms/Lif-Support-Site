@@ -8,11 +8,9 @@ import Cookies from "js-cookie";
 import escapeHtml from "../scripts/sanitize_username";
 
 function SignIn({showSignIn}) {
-    const navigate = useNavigate();
-
     // Handle button navigate
     function handle_click() {
-        navigate("/login");
+        window.location.href = "https://my.lifplatforms.com/#/login?redirect=https://support.lifplatforms.com";
     }
 
     if (showSignIn === true) {
