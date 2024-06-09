@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { get_token, check_token } from "../scripts/verify_token";
 import getCookieValue from "../scripts/get_username"
 import Cookies from "js-cookie";
+import escapeHtml from "../scripts/sanitize_username";
 
 function SignIn({showSignIn}) {
     const navigate = useNavigate();
@@ -135,6 +136,9 @@ function NewPost() {
     // Format username
     const formatted_username = decodeURIComponent(username);
 
+    // Sanitize username
+    const sanitized_username = escapeHtml(formatted_username);
+
     return(
         <div>
             <Topnav />
@@ -145,7 +149,7 @@ function NewPost() {
             </div>
             <div className="post-container">
                 <div className="avatar">
-                    <img src={`${process.env.REACT_APP_AUTH_SERVER_URL}/profile/get_avatar/${formatted_username}.png`} alt="" />
+                    <img src={`${process.env.REACT_APP_AUTH_SERVER_URL}/profile/get_avatar/${sanitized_username}.png`} alt="" />
                 </div>
                 <div className="post-form">
                     <div className="post-header">
