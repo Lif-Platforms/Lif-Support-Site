@@ -11,7 +11,6 @@ import PlusIcon from "../assets/global/plus-icon.svg";
 
 function AccountPanel({ show }) {
     const [username, setUsername] = useState(null);
-    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchData() {
@@ -34,7 +33,7 @@ function AccountPanel({ show }) {
     }
 
     function handle_sign_in() {
-        navigate('/login');
+        window.location.href = "https://my.lifplatforms.com/#/login?redirect=https://support.lifplatforms.com";
     }
 
     if (show === true && username !== null) {
