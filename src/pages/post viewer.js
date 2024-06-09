@@ -9,6 +9,7 @@ import { check_token } from "../scripts/verify_token";
 import EditIcon from "../assets/post viewer/edit_icon.png";
 import DeleteIcon from "../assets/post viewer/delete_icon.png";
 import ThreeDotSpinner from "../global-components/spinners";
+import CheckIcon from "../assets/post viewer/check-icon.svg";
 
 // Component for writing comments and answers
 function Writer({ state, setState, postState }) {
@@ -249,14 +250,19 @@ function Controls({setWriterState, setDeletePostPopupShow, postState}) {
     if (showControls) {
         return(
             <div className="controls">
+                <button onClick={handle_comment_open} className="type1">Comment</button>
+                <button onClick={handle_answer_open} className="type1">Answer</button>
+                <div className="separator" />
                 {showEditControls ? (
                     <div>
                         <button className="type2" onClick={() => setWriterState("edit")}><img src={EditIcon} alt=""/></button>
+                    </div>
+                ): null}
+                {showEditControls ? (
+                    <div>
                         <button className="type2" onClick={() => setDeletePostPopupShow(true)}><img src={DeleteIcon} alt=""/></button>
                     </div>
                 ): null}
-                <button onClick={handle_comment_open} className="type1">Comment</button>
-                <button onClick={handle_answer_open} className="type1">Answer</button>
             </div>
         );
     } else {
@@ -315,14 +321,20 @@ function Post({setDeletePostPopupShow}) {
     } else if (typeof postState === "object" && postState !== null) {
         return(
             <div className="post-view-header post-loaded">
-                <h1>{postState.Title}</h1>
-                <p style={{ whiteSpace: 'pre-line' }}>{postState.Content}</p>
-                <span className="post-date">Posted: {postState.Date ? postState.Date : "Not Available"}</span>
-                <span className={postState.Software === "Ringer" ? "ringer-software" : postState.Software === "Dayly" ? "dayly-software" : "software"}>{postState.Software}</span>
+                <div className="content-container">
+                    <div>
+                        <img src={`${process.env.REACT_APP_AUTH_SERVER_URL}/get_pfp/${postState.Author}.png`} alt="" className="post-author-img" />
+                        <span className="post-author">{postState.Author}</span>
+                    </div>
+                    <div>
+                        <h1>{postState.Title}</h1>
+                        <p style={{ whiteSpace: 'pre-line' }}>{postState.Content}</p>
+                        <span className="post-date">Posted: {postState.Date ? postState.Date : "Not Available"}</span>
+                        <span className={postState.Software === "Ringer" ? "ringer-software" : postState.Software === "Dayly" ? "dayly-software" : "software"}>{postState.Software}</span>
+                    </div>
+                </div>
                 <Controls setWriterState={setWriterState} setDeletePostPopupShow={setDeletePostPopupShow} postState={postState} />
                 <Writer state={writerState} setState={setWriterState} postState={postState} />
-                <img src={`${process.env.REACT_APP_AUTH_SERVER_URL}/get_pfp/${postState.Author}.png`} alt="" className="post-author-img" />
-                <span className="post-author">{postState.Author}</span>
             </div>
         )
     } else if (postState === "404") {
@@ -396,7 +408,6 @@ function Comments() {
     } else if (Array.isArray(commentsState) && commentsState.length > 0) {
         return(
             <div className="comments-viewer comment-left">
-                <h1>Comments:</h1>
                 {commentsState.map(item => (
                     (item.Type === "Comment" ? 
                         <div className="comment">
@@ -408,10 +419,12 @@ function Comments() {
                         </div>
                     : 
                         <div className="answer">
-                            <h1>Answer</h1>
+                            <div className="answer-header">
+                                <img src={CheckIcon} alt="" />
+                                <h1>Answer</h1>
+                            </div>
                             <p style={{ whiteSpace: 'pre-line' }}>{item.Content}</p>
                             <span>Posted By: {item.Author}</span>
-                            <img src={`${process.env.REACT_APP_AUTH_SERVER_URL}/get_pfp/${item.Author}.png`} alt="" />
                         </div>
                     )
                 ))}
