@@ -1,34 +1,54 @@
-.post-container {
-    padding: 10%;
-    display: flex;
-    justify-content: center; 
+.page-title {
+    text-align: center;
+    margin-top: 10%;
+    font-size: x-large;
 }
 
-.post-form {
-    width: 700px;
-    display: block;
-    box-shadow: 5px 5px 20px rgb(112, 111, 111);
-    font-family: Arial, Helvetica, sans-serif;
-    padding: 30px;
-    border-radius: 1em;
-    transition: 0.2s ease-in-out;
-    animation-name: form-animation;
-    animation-duration: 0.5s;
-}
-
-@media screen and (max-width: 1000px) {
-    .post-form {
-        margin-top: 80px !important;
+@media screen and (max-width: 700px) {
+    .page-title {
+        margin-top: 15%;
     }
 }
 
 @media screen and (max-width: 500px) {
+    .page-title {
+        font-size: large;
+        margin-top: 20%;
+    }
+
+    .avatar {
+        display: none;
+    }
+}
+
+.avatar img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.post-container {
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    justify-content: center; 
+}
+
+.post-form {
+    width: 100%;
+    max-width: 700px;
+    box-sizing: border-box;
+    display: block;
+    border: 1px solid black;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 30px;
+    border-radius: 1em;
+}
+
+@media screen and (max-width: 500px) {
     .post-form {
-        box-shadow: none;
-        width: 100%;
-        padding: 0px;
-        animation-name: form-animation-mobile;
-        animation-duration: 0.5s;
+        padding: 15px;
     }
 }
 
@@ -44,59 +64,48 @@
     width: 100%;
     padding: 10px;
     font-size: large;
-    width: 95%;
     border-radius: 0.5em;
-    border: solid black;
-    border-width: 1px;
+    background-color: #F2F2F2;
+    border: none;
+    box-sizing: border-box;
+    margin-bottom: 20px;
 }
 
 .post-body textarea {
     width: 100%;
+    box-sizing: border-box;
     padding: 10px;
     font-size: large;
-    width: 95%;
     border-radius: 0.5em;
-    border: solid black;
-    border-width: 1px;
+    border: none;
     height: 500px;
+    margin-bottom: 20px;
     resize: unset;
     font-family: Arial, Helvetica, sans-serif;
+    background-color: #F2F2F2;
 }
 
 .post-body select {
     padding: 10px;
     border-radius: 0.5em;
+    margin-bottom: 20px;
+    width: 100px;
 }
 
 .post-body button{
-    margin-top: 20px;
-    background: rgb(156,14,219);
-    background: linear-gradient(90deg, rgba(156,14,219,1) 21%, rgba(255,0,183,1) 100%);
-    color: white;
+    color: black;
     border: none;
-    border-radius: 1em;
+    border-radius: 0.3em;
     font-size: x-large;
-    padding: 5px;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding: 5px 30px;
     opacity: 1;
-    transition: 0.3s;
-    font-weight: bold;
+    transition: 0.3s ease-in-out;
+    background-color: #DCECFF;
+    display: block;
 }
 
 .post-body button:hover {
-    background: rgb(156,14,219);
-    background: linear-gradient(90deg, rgba(156,14,219,1) 21%, rgba(255,0,183,1) 100%);
-    color: white;
-    border: none;
-    border-radius: 1em;
-    font-size: x-large;
-    padding: 5px;
-    padding-left: 30px;
-    padding-right: 30px;
-    opacity: 0.60;
-    transition: 0.3s;
-    font-weight: bold;
+    opacity: 0.5;
 }
 
 .post-body button:active {
@@ -113,37 +122,6 @@
     transition: 0.3s;
     transform: scale(0.90);
     font-weight: bold;
-}
-
-@keyframes panel-animation {
-    0% {
-        transform: scale(0.60);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-@keyframes form-animation {
-    0% { 
-        transform: translateY(300px);
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-@keyframes form-animation-mobile {
-    0% { 
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
 }
 
 .sign-in-panel-show {
@@ -215,7 +193,7 @@
 }
 
 .post-status {
-    display: inline-block;
+    display: block;
     color: red;
-    margin-left: 20px;
+    margin-top: 10px;
 }
