@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { get_token, check_token } from "../scripts/verify_token";
 import getCookieValue from "../scripts/get_username"
+import Cookies from "js-cookie";
 
 function SignIn({showSignIn}) {
     const navigate = useNavigate();
@@ -128,30 +129,34 @@ function NewPost() {
         });
         }
 
+    // Get username from cookies
+    const username = Cookies.get("LIF_USERNAME");
+
+    // Format username
+    const formatted_username = decodeURIComponent(username);
+
     return(
         <div>
             <Topnav />
             <SignIn showSignIn={showSignIn} />
+            <div className="page-title">
+                <h1>New Post</h1>
+                <p>What do you need help with?</p>
+            </div>
             <div className="post-container">
+                <div className="avatar">
+                    <img src={`${process.env.REACT_APP_AUTH_SERVER_URL}/profile/get_avatar/${formatted_username}.png`} alt="" />
+                </div>
                 <div className="post-form">
                     <div className="post-header">
-                        <h1>New Post</h1>
-                        <p>What do you need help with?</p>
                     </div>
                     <div className="post-body">
-                        <h2>Title</h2>
-                        <p>What should we title your post.</p>
-                        <input type="text" id="title" placeholder="Example Title" />
-                        <h2>Body</h2>
-                        <p>What are you posting about? Give a detailed description of your issue.</p>
-                        <textarea placeholder="Body Text..." id="body" />
-                        <h2>Software</h2>
-                        <p>What software are you posting about.</p>
+                        <input type="text" id="title" placeholder="Title" />
+                        <textarea placeholder="Description" id="body" />
                         <select name="Software" id="software"> 
                             <option value="Ringer">Ringer</option> 
                             <option value="Dayly">Dayly</option> 
                         </select>
-                        <br />
                         <button id="post-button" onClick={() => create_post()}>Post</button>
                         <span className="post-status" id="post-status" />
                     </div>
