@@ -28,8 +28,18 @@ function AccountPanel({ show }) {
     let url = `${auth_url}/get_pfp/${username}.png`;
 
     const handle_log_out = () => {
-        log_out();
-        window.location.reload();
+        // Make logout request to Auth Server
+        fetch(`${process.env.REACT_APP_AUTH_SERVER_URL}/auth/logout`)
+        .then(response => {
+            if (response.ok) {
+                window.location.reload();
+            } else {
+                throw new Error("Request failed with status code: " + response.status);
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        })
     }
 
     function handle_sign_in() {
