@@ -10,6 +10,7 @@ import EditIcon from "../assets/post viewer/edit_icon.png";
 import DeleteIcon from "../assets/post viewer/delete_icon.png";
 import ThreeDotSpinner from "../global-components/spinners";
 import CheckIcon from "../assets/post viewer/check-icon.svg";
+import ReactMarkdown from "react-markdown";
 
 // Component for writing comments and answers
 function Writer({ state, setState, postState }) {
@@ -310,7 +311,10 @@ function Post({setDeletePostPopupShow}) {
             });
         }
         load_post();
-    }, [post_id])
+    }, [post_id]);
+
+    // Create a list of allowed elements in markdown
+    const allowed_elements = ["h1", "h2", "li", "ul", "ol", "p", "strong"]
 
     if (postState === "loading") {
         return(
@@ -328,7 +332,7 @@ function Post({setDeletePostPopupShow}) {
                     </div>
                     <div>
                         <h1>{postState.Title}</h1>
-                        <p style={{ whiteSpace: 'pre-line' }}>{postState.Content}</p>
+                        <ReactMarkdown  className="post-content" allowedElements={allowed_elements} style={{ whiteSpace: 'pre-line' }}>{postState.Content}</ReactMarkdown>
                         <span className="post-date">Posted: {postState.Date ? postState.Date : "Not Available"}</span>
                         <span className={postState.Software === "Ringer" ? "ringer-software" : postState.Software === "Dayly" ? "dayly-software" : "software"}>{postState.Software}</span>
                     </div>
