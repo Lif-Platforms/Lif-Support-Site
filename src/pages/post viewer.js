@@ -21,6 +21,8 @@ function Writer({ state, setState, postState }) {
     const postButtonRef = useRef();
     const postFormRef = useRef();
     const postStatusRef = useRef();
+    const commentEntry = useRef();
+    const answerEntry = useRef();
 
     // Retrieve the post id parameter from the URL
     const { post_id } = useParams();
@@ -73,7 +75,10 @@ function Writer({ state, setState, postState }) {
         })
     }
 
-    async function handle_comment() {
+    async function handle_comment(event) {
+        // Prevent the form from refreshing the page on submission
+        event.preventDefault();
+
         // Update post button status
         document.getElementById('writer-post').innerHTML = "Posting...";
         document.getElementById('writer-post').disabled = true;
@@ -83,11 +88,8 @@ function Writer({ state, setState, postState }) {
         const username = await getCookieValue();
         const token = await get_token();
 
-        // Gets comment
-        const comment = postCommentRef.current.value;
-
-        const formData = new FormData();
-        formData.append("comment", comment);
+        // Get comment value and add post id to form data
+        const formData = new FormData(commentEntry.current);
         formData.append("post_id", post_id);
 
         // Backend url
@@ -123,7 +125,10 @@ function Writer({ state, setState, postState }) {
         });
     }
 
-    async function handle_answer() {
+    async function handle_answer(event) {
+        // Prevent the form from refreshing the page on submission
+        event.preventDefault();
+
         // Update post button status
         document.getElementById('writer-post').innerHTML = "Posting...";
         document.getElementById('writer-post').disabled = true;
@@ -132,12 +137,9 @@ function Writer({ state, setState, postState }) {
         // Gets auth information
         const username = await getCookieValue();
         const token = await get_token();
-
-        // Gets answer
-        const answer = postAnswerRef.current.value;
-    
-        const formData = new FormData();
-        formData.append("answer", answer);
+        
+        // Get answer value and add post id to form data
+        const formData = new FormData(answerEntry.current);
         formData.append("post_id", post_id);
 
         // Backend url
@@ -177,8 +179,10 @@ function Writer({ state, setState, postState }) {
         return(
             <div className="post-writer">
                 <h1>Share Your Thoughts</h1>
-                <input placeholder="Comment" type="text" ref={postCommentRef} />
-                <button className="writer-post-button" id="writer-post" onClick={handle_comment}>Post</button>
+                <form onSubmit={handle_comment} ref={commentEntry}>
+                    <input required="true" name="comment" placeholder="Comment" type="text" ref={postCommentRef} />
+                    <button type="submit" className="writer-post-button" id="writer-post">Post</button>
+                </form>             
                 <span className="writer-post-status" id="writer-post-status" />
                 <button className="writer-close-btn" onClick={handle_close}>&#10006;</button>
             </div>
@@ -187,8 +191,10 @@ function Writer({ state, setState, postState }) {
         return(
             <div className="post-writer">
                 <h1>Post Your Answer</h1>
-                <textarea placeholder="Answer..." ref={postAnswerRef} />
-                <button className="writer-post-button" id="writer-post" onClick={handle_answer}>Post</button>
+                <form onSubmit={handle_answer} ref={answerEntry}>
+                    <textarea required="true" name="answer" placeholder="Answer..." ref={postAnswerRef} />
+                    <button type="submit" className="writer-post-button" id="writer-post">Post</button>
+                </form>
                 <span className="writer-post-status" id="writer-post-status" />
                 <button className="writer-close-btn" onClick={handle_close}>&#10006;</button>
             </div>
