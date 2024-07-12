@@ -1,6 +1,6 @@
 import Topnav from "../global-components/topnav";
 import "../css/post.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { get_token, check_token } from "../scripts/verify_token";
 import getCookieValue from "../scripts/get_username"
@@ -40,6 +40,7 @@ function SignIn({showSignIn}) {
 function NewPost() {
     const [showSignIn, setShowSignIn] = useState(false);
     const navigate = useNavigate();
+    const postForm = useRef();
 
     // Checks if the use is singed in
     useEffect(() => {
@@ -56,7 +57,10 @@ function NewPost() {
         handle_check_token();
     }, [])
 
-    async function create_post() {
+    async function create_post(event) {
+        // Prevent form from refreshing the page on submission
+        event.preventDefault();
+
         // Gets the post button and changes its status
         const post_button = document.getElementById("post-button");
         post_button.innerHTML = "Posting...";
@@ -66,21 +70,10 @@ function NewPost() {
         const username = await getCookieValue();
         const token = await get_token();
 
-        // Gets the post title and content
-        const title_input = document.getElementById("title");
-        const title = title_input.value;
+        // Get form data
+        const formData = new FormData(postForm.current);
 
-        const body_input = document.getElementById('body');
-        const body = body_input.value; 
-
-        // Gets the selected software
-        const software_input = document.getElementById('software');
-        const software = software_input.value;
-
-        const formData = new FormData();
-        formData.append("title", title);
-        formData.append("content", body);
-        formData.append("software", software);
+        console.log(formData)
 
         // Backend url
         const support_url = process.env.REACT_APP_SUPPORT_SERVER_URL;
@@ -153,14 +146,16 @@ function NewPost() {
                     <div className="post-header">
                     </div>
                     <div className="post-body">
-                        <input type="text" id="title" placeholder="Title" />
-                        <textarea placeholder="Description" id="body" />
-                        <select name="Software" id="software"> 
-                            <option value="Ringer">Ringer</option> 
-                            <option value="Dayly">Dayly</option> 
-                        </select>
-                        <button id="post-button" onClick={() => create_post()}>Post</button>
-                        <span className="post-status" id="post-status" />
+                        <form ref={postForm} onSubmit={create_post}>
+                            <input required="true" name="title" type="text" id="title" placeholder="Title" />
+                            <textarea required="true" name="content" placeholder="Description" id="body" />
+                            <select required="true" name="software" id="software"> 
+                                <option value="Ringer">Ringer</option> 
+                                <option value="Dayly">Dayly</option> 
+                            </select>
+                            <button type="submit" id="post-button">Post</button>
+                            <span className="post-status" id="post-status" />
+                        </form>
                     </div>
                 </div>  
             </div>
