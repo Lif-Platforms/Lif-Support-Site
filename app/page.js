@@ -8,6 +8,11 @@ export const metadata = {
   description: "Get support from our helpful community for Lif Platforms products and services."
 }
 
+export const metadata = {
+  title: "Lif Support",
+  description: "Get support from our helpful community for Lif Platforms products and services."
+}
+
 export default function Home() {
   // Get username from cookies
   const cookieStore = cookies();
