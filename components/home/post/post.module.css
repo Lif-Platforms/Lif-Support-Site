@@ -1,0 +1,40 @@
+.post {
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 1200px;
+    border-top: 1px solid black;
+    padding: 20px;
+    text-align: left;
+    display: block;
+    margin: 30px auto;
+    color: black;
+    word-wrap: break-word;
+    cursor: pointer;
+}
+
+.post h1 {
+    text-indent: 0;
+}
+
+.software {
+    padding: 5px;
+    background-color: white;
+    border-radius: 0.5em;
+    font-weight: bold;
+}
+
+.ringer_software {
+    padding: 5px;
+    background-color: orange;
+    border-radius: 0.5em;
+    font-weight: bold;
+    color: white;
+}
+
+.dayly_software {
+    padding: 5px;
+    background-color: rgb(0, 174, 255);
+    border-radius: 0.5em;
+    font-weight: bold;
+    color: white;
+}

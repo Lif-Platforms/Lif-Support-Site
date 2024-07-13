@@ -55,3 +55,24 @@
         opacity: 1;
     }
 }
+
+@media screen and (max-width: 700px) {
+    .account_panel {
+        margin-right: 20px;
+    }
+    .topnav-post button:active {
+        padding: 3px 10px !important;
+        font-size: medium;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .account_panel {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .topnav-logo img {
+        width: 80px;
+    }
+}
