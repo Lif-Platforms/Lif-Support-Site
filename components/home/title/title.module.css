@@ -1,0 +1,41 @@
+.title {
+    text-align: center;
+    padding: 10%;
+}
+
+.search {
+    background-color: #DCDCDC;
+    border-radius: 0.7em;
+    display: flex;
+    justify-content: left;
+    padding: 5px;
+    gap: 10px;
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+}
+
+.search img {
+    height: inherit;
+    display: block;
+}
+
+.search input {
+    width: 100%;
+    box-sizing: border-box;
+    background-color: transparent;
+    color: black;
+    border: none;
+}
+
+@media screen and (max-width: 700px) {
+    .logo {
+        margin-top: 30px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .logo {
+        margin-top: 50px;
+    }
+}
