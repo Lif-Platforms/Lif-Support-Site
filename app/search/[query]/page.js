@@ -7,9 +7,9 @@ import Filters from "@/components/search/filters/filters";
 export const metadata = {
     title: "Lif Support | Search Results",
     description: "Get support from our helpful community for Lif Platforms products and services."
-  }
+}
 
-export default async function SearchPage({ params }) {
+export default async function SearchPage({ params, searchParams }) {
     // Get username from cookies
     const cookieStore = cookies();
     const username = cookieStore.get('LIF_USERNAME');
@@ -18,9 +18,17 @@ export default async function SearchPage({ params }) {
     const query = params.query;
     const format_query = query.replaceAll("%20", " ");
 
-
     let search_url = `${process.env.REACT_APP_SUPPORT_URL}/search/${format_query}`;
 
+    // Get search filters
+    const query_params = searchParams;
+    const filters = query_params.filters;
+
+    // Check if filters are present and if so add them to fetch URL
+    if (filters) {
+        search_url += `?filters=${filters}`;
+    }
+    
     // Send search query to backend
     const response = await fetch(search_url);
 
