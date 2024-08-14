@@ -1,0 +1,9 @@
+.post_view_container {
+    padding-top: 100px;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
