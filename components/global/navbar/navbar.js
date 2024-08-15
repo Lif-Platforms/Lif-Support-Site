@@ -34,7 +34,7 @@ export default function NavBar({ username, auth_url }) {
             <div className={styles.account_button}>
                 {/* eslint-disable-next-line */}
                 <a onClick={handle_account_panel}>
-                    <Image width={50} height={50} src={`${auth_url}/profile/get_avatar/${username}.png`} alt="" />
+                    <img src={`${auth_url}/profile/get_avatar/${username}.png`} alt="" />
                 </a>
                 <AccountPanel auth_url={auth_url} username={username} panel_open={panelOpen} />
             </div>
