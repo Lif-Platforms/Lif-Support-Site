@@ -3,6 +3,8 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import Post from "@/components/post_viewer/post/post";
 import styles from './page.module.css';
+import Comments from "@/components/post_viewer/comments/comments";
+import Image from "next/image";
 
 export const metadata = {
     title: "Lif Support | Support Post",
@@ -45,6 +47,11 @@ export default async function ViewPostPage({ params }) {
                         post_id={params.post_id}
                         support_url={process.env.REACT_APP_SUPPORT_URL}
                     />
+                    <Comments
+                        auth_url={process.env.REACT_APP_AUTH_URL}
+                        support_url={process.env.REACT_APP_SUPPORT_URL}
+                        post_id={params.post_id}
+                    />
                 </div>
             )
         } else {
@@ -52,10 +59,11 @@ export default async function ViewPostPage({ params }) {
         }
     } else if (response.status === 404) {
         return (
-            <div>
+            <div className={styles.not_found}>
                 <NavBar username={username.value} auth_url={process.env.REACT_APP_AUTH_URL} />
-                <h1>Page Not Found!</h1>
-                <p>The page you requested could not be found.</p>
+                <Image className={styles.img} src="/post_viewer/not_found.png" alt="" width={100} height={100} />
+                <h1 className={styles.title}>Page Not Found!</h1>
+                <p className={styles.message}>The page you requested could not be found.</p>
             </div>
         )
     }

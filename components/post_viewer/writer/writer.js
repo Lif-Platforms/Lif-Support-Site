@@ -21,6 +21,8 @@ export default function Writer({
     const editPostTitleInput = useRef();
     const editPostContentInput = useRef();
     const editPostSoftwareInput = useRef();
+    const commentInput = useRef();
+    const answerInput = useRef();
 
     function handle_reply(event, type) {
         // Prevent form from reloading page
@@ -96,6 +98,14 @@ export default function Writer({
             editPostTitleInput.current.value = post_title;
             editPostContentInput.current.value = post_content;
             editPostSoftwareInput.current.value = post_software;
+        } else {
+            // Clear answer and comment input so next does not fill them in with the edit post values
+            if (answerInput.current) {
+                answerInput.current.value = "";
+            }
+            if (commentInput.current) {
+                commentInput.current.value = "";
+            }
         }
     }, [writerState])
 
@@ -104,7 +114,7 @@ export default function Writer({
             <div className={styles.post_writer}>
                 <h1>Share Your Thoughts</h1>
                 <form ref={replyForm} onSubmit={(event) => handle_reply(event, "Comment")}>
-                    <input required="true" name="content" placeholder="Comment" type="text" />
+                    <input ref={commentInput} required="true" name="content" placeholder="Comment" type="text" />
                     <button type="submit" className={styles.writer_post_button} ref={writerPostButton}>Post</button>
                 </form>             
                 <span className="writer-post-status" ref={writerPostStatus} />
@@ -116,7 +126,7 @@ export default function Writer({
             <div className={styles.post_writer}>
                 <h1>Post Your Answer</h1>
                 <form ref={replyForm} onSubmit={(event) => handle_reply(event, "Answer")}>
-                    <textarea required="true" name="content" placeholder="Answer..." />
+                    <textarea ref={answerInput} required="true" name="content" placeholder="Answer..." />
                     <button type="submit" className={styles.writer_post_button} ref={writerPostButton}>Post</button>
                 </form>
                 <span className="writer-post-status" ref={writerPostStatus} />

@@ -3,19 +3,43 @@
     grid-template-columns: 50px auto;
     gap: 20px;
     width: 100%;
+    box-sizing: border-box;
 }
 
 .content_container h1 {
     margin: 0;
 }
 
+.post_content {
+    width: 100%;
+    box-sizing: border-box;
+    word-wrap: break-word; /* Legacy */
+    overflow-wrap: break-word; /* Standard */
+    word-break: break-word; /* Break long words */
+}
+
 .post_content h1 {
     font-size: 25px;
     margin: 10px 0;
+    word-wrap: break-word;
+    max-width: 100%;
+    box-sizing: border-box;
+    text-wrap: wrap;
 }
 
 .post_content li {
     margin: 8px 0;
+    word-wrap: break-word;
+    max-width: 100%;
+    box-sizing: border-box;
+    text-wrap: wrap;
+}
+
+.post_content p {
+    word-wrap: break-word;
+    max-width: 100%;
+    box-sizing: border-box;
+    text-wrap: wrap;
 }
 
 .software {

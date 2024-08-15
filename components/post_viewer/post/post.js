@@ -18,13 +18,13 @@ export default function Post({
     const allowed_elements = ["h1", "h2", "li", "ul", "ol", "p", "strong"]
 
     return (
-        <div style={{width: '100%'}}>
+        <div style={{width: '100%', boxSizing: 'border-box'}}>
             <div className={styles.content_container}>
                 <div>
                     <img src={`${auth_url}/get_pfp/${author}.png`} alt="" className={styles.post_author_img} />
                     <span className={styles.post_author}>{author}</span>
                 </div>
-                <div>
+                <div style={{width: '100%', boxSizing: 'border-box'}}>
                     <h1 className={styles.post_title}>{title}</h1>
                     <ReactMarkdown className={styles.post_content} allowedElements={allowed_elements} style={{ whiteSpace: 'pre-line' }}>{content}</ReactMarkdown>
                     <span className="post-date">Posted: {date ? date : "Not Available"}</span>
