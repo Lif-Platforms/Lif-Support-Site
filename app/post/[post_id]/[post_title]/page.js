@@ -14,8 +14,24 @@ export const metadata = {
 export default async function ViewPostPage({ params }) {
     // Get username and token from cookies
     const cookieStore = cookies();
-    const username = cookieStore.get('LIF_USERNAME');
-    const token = cookieStore.get('LIF_TOKEN');
+    const username_cookie = cookieStore.get('LIF_USERNAME');
+    const token_cookie = cookieStore.get('LIF_TOKEN');
+
+    let username;
+    let token;
+
+    // Check is username and token have any value
+    if (username_cookie) {
+        username = username_cookie.value;
+    } else {
+        username = null;
+    }
+
+    if (token_cookie) {
+        token = token_cookie.value;
+    } else {
+        token = null;
+    }
 
     // Fetch post from server
     const response = await fetch(`${process.env.REACT_APP_SUPPORT_URL}/load_post/${params.post_id}`, {
@@ -34,7 +50,7 @@ export default async function ViewPostPage({ params }) {
         if (post.Title === format_client_title) {
             return (
                 <div className={styles.post_view_container}>
-                    <NavBar username={username.value} auth_url={process.env.REACT_APP_AUTH_URL} />
+                    <NavBar username={username} auth_url={process.env.REACT_APP_AUTH_URL} />
                     <Post 
                         title={post.Title}
                         content={post.Content}
@@ -42,8 +58,8 @@ export default async function ViewPostPage({ params }) {
                         software={post.Software}
                         date={post.Date}
                         auth_url={process.env.REACT_APP_AUTH_URL}
-                        current_user={username.value}
-                        token={token.value}
+                        current_user={username}
+                        token={token}
                         post_id={params.post_id}
                         support_url={process.env.REACT_APP_SUPPORT_URL}
                     />

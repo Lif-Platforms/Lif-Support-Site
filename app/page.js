@@ -12,7 +12,15 @@ export const metadata = {
 export default async function Home() {
   // Get username from cookies
   const cookieStore = cookies();
-  const username = cookieStore.get('LIF_USERNAME');
+  const username_cookie = cookieStore.get('LIF_USERNAME');
+  let username;
+  
+  // Check if username has any value
+  if (username_cookie) {
+    username = username_cookie.value;
+  } else {
+    username = null;
+  }
 
   // Get recent posts
   const response = await fetch(`${process.env.REACT_APP_SUPPORT_URL}/load_recent_posts`);
@@ -28,7 +36,7 @@ export default async function Home() {
 
   return (
     <main>
-      <NavBar auth_url={process.env.REACT_APP_AUTH_URL} username={username.value} />
+      <NavBar auth_url={process.env.REACT_APP_AUTH_URL} username={username} />
       <Title />
       <div className={styles.recent_posts}>
         <h1>Recent Posts:</h1>
