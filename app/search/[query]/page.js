@@ -12,7 +12,15 @@ export const metadata = {
 export default async function SearchPage({ params, searchParams }) {
     // Get username from cookies
     const cookieStore = cookies();
-    const username = cookieStore.get('LIF_USERNAME');
+    const username_cookie = cookieStore.get('LIF_USERNAME');
+    let username
+
+    // Check if username cookie exists
+    if (username_cookie) {
+        username = username_cookie.value;
+    } else {
+        username = null;
+    }
 
     // Get and format search query
     const query = params.query;
@@ -42,7 +50,7 @@ export default async function SearchPage({ params, searchParams }) {
 
     return (
         <div className={styles.search_page}>
-            <NavBar auth_url={process.env.REACT_APP_AUTH_URL} username={username.value} />
+            <NavBar auth_url={process.env.REACT_APP_AUTH_URL} username={username} />
             <h1 className={styles.search_query}>Search Results For: "{format_query}"</h1>
             <Filters search={format_query} />
             <div className={styles.results}>

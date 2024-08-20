@@ -28,12 +28,21 @@ export default function AccountPanel({ auth_url, username, panel_open}) {
                     <h1>{username}</h1>
                 </div>
                 <hr />
-                {/* eslint-disable-next-line */}
                 <Link href="https://my.lifplatforms.com">Manage Account</Link>
-                {/* eslint-disable-next-line */}
                 <a onClick={handle_log_out}>Log Out</a>
             </div>
         )
+    } else if (panel_open && username === null) {
+        return (
+            <div className={styles.account_panel}>
+                <div className={styles.header}>
+                    <img src={`${auth_url}/profile/get_avatar/${username}.png`} alt="" />
+                    <h1>Guest</h1>
+                </div>
+                <hr />
+                <Link href="https://my.lifplatforms.com/#/login?redirect=https://support.lifplatforms.com">Sign In</Link>
+            </div>
+        );
     } else {
         return null;
     }
