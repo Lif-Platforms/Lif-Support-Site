@@ -45,6 +45,18 @@
     margin-bottom: 10px; /* Add margin-bottom for spacing */
 }
 
+.header img {
+    width: 50px;
+    object-fit: cover;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.header h1 {
+    width: 100%;
+    box-sizing: border-box;
+}
+
 @keyframes account-panel-animation {
     0% {
         transform: translateY(-40px);
