@@ -2,7 +2,8 @@
 
 import { useEffect, useRef } from "react";
 import styles from "./filters.module.css";
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'nextjs-toploader/app';
 
 export default function Filters({ search }) {
     const ringerCheckBoxRef = useRef();

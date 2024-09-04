@@ -1,20 +1,17 @@
 'use client'
 
 import styles from './post.module.css';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function Post({title, content, software, id}) {
-    const router = useRouter();
-
-    function handle_navigation() {
-        router.push(`/post/${id}/${title}`);
-    }
 
     return (
-        <div className={styles.post} onClick={handle_navigation}>
-            <h1>{title}</h1>
-            <p>{content}</p>
-            <span className={software === "Ringer" ? styles.ringer_software : software === "Dayly" ? styles.dayly_software : styles.software}>{software}</span>
-        </div>
+        <Link href={`/post/${id}/${title}`}>
+            <div className={styles.post}>
+                <h1>{title}</h1>
+                <p>{content}</p>
+                <span className={software === "Ringer" ? styles.ringer_software : software === "Dayly" ? styles.dayly_software : styles.software}>{software}</span>
+            </div>
+        </Link>
     )
 }

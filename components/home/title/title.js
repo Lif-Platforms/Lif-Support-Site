@@ -3,7 +3,7 @@
 import { useRef } from 'react';
 import styles from './title.module.css';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'nextjs-toploader/app';
 
 export default function Title() {
     const searchInputRef = useRef();

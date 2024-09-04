@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import AccountPanel from './account_panel';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'nextjs-toploader/app';
 
 export default function NavBar({ username, auth_url }) {
     const [panelOpen, setPanelOpen] = useState(false);
