@@ -1,0 +1,22 @@
+.footer {
+    background-color: rgb(235, 235, 235);
+    width: 100%;
+    font-family: Inter;
+}
+
+.footer h1 {
+    font-size: medium;
+    padding: 5px;
+    display: inline-block;
+}
+
+.footer_links {
+    display: inline-block;
+    margin-left: 50px;
+}
+
+.footer_links a {
+    margin-right: 30px;
+    color: blue;
+    text-decoration: underline;
+}
