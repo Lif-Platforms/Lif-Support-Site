@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import ClarityScript from "@/components/global/clairity/clairity";
 import NextTopLoader from 'nextjs-toploader';
+import Footer from "@/components/global/footer/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +19,7 @@ export default function RootLayout({ children }) {
         showSpinner={false}
       />
       <body className={inter.className}>{children}</body>
+      <Footer />
     </html>
   );
 }
