@@ -1,0 +1,66 @@
+.post_body input {
+    width: 100%;
+    padding: 10px;
+    font-size: large;
+    border-radius: 0.5em;
+    background-color: #F2F2F2;
+    border: none;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+.post_body input:disabled {
+    opacity: 0.5;
+}
+
+.post_body textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: large;
+    border-radius: 0.5em;
+    border: none;
+    height: 500px;
+    margin-bottom: 20px;
+    resize: unset;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #F2F2F2;
+}
+
+.post_body textarea:disabled {
+    opacity: 0.5;
+}
+
+.post_body select {
+    padding: 10px;
+    border-radius: 0.5em;
+    margin-bottom: 20px;
+    width: 100px;
+}
+
+.post_body select:disabled {
+    opacity: 0.5;
+}
+
+.post_body button {
+    color: black;
+    border: none;
+    border-radius: 0.3em;
+    font-size: x-large;
+    padding: 5px 30px;
+    opacity: 1;
+    transition: 0.3s ease-in-out;
+    background-color: #DCECFF;
+    display: block;
+    cursor: pointer;
+}
+
+.post_body button:hover {
+    opacity: 0.5;
+}
+
+.post_status {
+    display: block;
+    color: red;
+    margin-top: 10px;
+}

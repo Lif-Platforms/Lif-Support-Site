@@ -1,0 +1,28 @@
+.search_page {
+    padding-top: 8%;
+    height: 100%;
+    width: 100%;
+}
+
+.search_query {
+    padding-left: 20px;
+    display: block;
+}
+
+.results {
+    text-align: center;
+    padding: 10px;
+}
+
+@media screen and (max-width: 700px) {
+    .search_query {
+        margin-top: 50px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .search_query {
+        font-size: x-large;
+        margin-top: 60px;
+    }
+}

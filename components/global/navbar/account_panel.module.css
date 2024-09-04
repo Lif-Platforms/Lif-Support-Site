@@ -1,0 +1,90 @@
+.account_panel {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: white;
+    border-radius: 1em;
+    box-shadow: 10px 10px 20px rgb(196, 196, 196);
+    padding: 20px;
+    border: solid black 1px;
+    animation-name: account-panel-animation;
+    animation-duration: 0.3s;
+    height: max-content;
+    min-width: 200px;
+}
+
+.account_panel h1 {
+    margin: 0;
+    padding-left: 10px;
+    font-size: x-large;
+}
+
+.account_panel a {
+    background-color: rgb(230, 230, 230);
+    padding: 10px;
+    border-radius: 1.5em;
+    display: block; /* Make the links block-level elements */
+    margin-bottom: 5px; /* Add margin-bottom for spacing */
+    width: 90%;
+    text-align: center; /* Center the link text */
+    transition: 0.3s ease-in-out;
+    border: solid rgb(230, 230, 230) 1px;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+}
+
+.account_panel a:hover {
+    background-color: white;
+    border: solid black 1px;
+}
+
+.header {
+    display: flex;
+    align-items: center; /* Vertically align the header content */
+    margin-bottom: 10px; /* Add margin-bottom for spacing */
+}
+
+.header img {
+    width: 50px;
+    object-fit: cover;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.header h1 {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+@keyframes account-panel-animation {
+    0% {
+        transform: translateY(-40px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .account_panel {
+        margin-right: 20px;
+    }
+    .topnav-post button:active {
+        padding: 3px 10px !important;
+        font-size: medium;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .account_panel {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .topnav-logo img {
+        width: 80px;
+    }
+}

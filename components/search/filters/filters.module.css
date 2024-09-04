@@ -1,0 +1,14 @@
+.search_filters {
+    margin-left: 20px;
+}
+
+.search_filters span {
+    font-weight: bold;
+}
+
+.search_filters a {
+    margin-left: 10px;
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}

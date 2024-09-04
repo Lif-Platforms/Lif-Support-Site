@@ -1,0 +1,19 @@
+.recent_posts {
+  margin-top: 50px;
+  display: block;
+  width: 100%;
+}
+
+.recent_posts h1 {
+  text-indent: 20px;
+}
+
+.recent_posts_container {
+  text-align: center;
+  padding: 20px;
+  display: block;
+}
+
+.recent_posts a {
+  text-decoration: none;
+}

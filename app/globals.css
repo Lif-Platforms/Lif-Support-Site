@@ -1,0 +1,10 @@
+html, body {
+    padding: 0;
+    margin: 0;
+}
+
+#nprogress .bar {
+    background: #29d !important; /* Ensure this color is visible */
+    height: 3px !important; /* Ensure this height is visible */
+    z-index: 999;
+}
