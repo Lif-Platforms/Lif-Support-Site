@@ -14,7 +14,7 @@ export default async function Comments({ post_id, support_url, auth_url }) {
                 <div className={styles.comments_viewer}>
                     {comments.map(item => (
                         (item.Type === "Comment" ? 
-                            <div className={styles.comment}>
+                            <div key={item.Id} className={styles.comment}>
                                 <img src={`${auth_url}/get_pfp/${item.Author}.png`} alt="" />
                                 <div>
                                     <h1>{item.Author}</h1>
@@ -22,7 +22,7 @@ export default async function Comments({ post_id, support_url, auth_url }) {
                                 </div> 
                             </div>
                         : 
-                            <div className={styles.answer}>
+                            <div key={item.Id} className={styles.answer}>
                                 <div className={styles.answer_header}>
                                     <Image width={30} height={30} src="/post_viewer/check_icon.svg" alt="" />
                                     <h1>Answer</h1>

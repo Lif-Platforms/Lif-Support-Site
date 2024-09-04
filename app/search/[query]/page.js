@@ -51,7 +51,7 @@ export default async function SearchPage({ params, searchParams }) {
     return (
         <div className={styles.search_page}>
             <NavBar auth_url={process.env.REACT_APP_AUTH_URL} username={username} />
-            <h1 className={styles.search_query}>Search Results For: "{format_query}"</h1>
+            <h1 className={styles.search_query}>Search Results For: &#34;{format_query}&#34;</h1>
             <Filters search={format_query} />
             <div className={styles.results}>
                 {Array.isArray(results) && results.length > 0 ? (
@@ -59,9 +59,9 @@ export default async function SearchPage({ params, searchParams }) {
                         <Post key={post.Id} id={post.Id} title={post.Title} content={post.Content} software={post.Software} />
                     ))
                 ) : Array.isArray(results) && results.length === 0 ? (
-                    <h1>We Couldn't Find Anything.</h1>
+                    <h1>We Couldn&#39;t Find Anything.</h1>
                 ) : (
-                    <h1>We Couldn't Load Search Results.</h1>
+                    <h1>We Couldn&#39;t Load Search Results.</h1>
                 )}
             </div>
         </div>
