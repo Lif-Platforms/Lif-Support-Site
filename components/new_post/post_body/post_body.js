@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import styles from "./post_body.module.css";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 
 export default function PostBody({ support_url, username, token }) {
     const postTitleInput = useRef();
