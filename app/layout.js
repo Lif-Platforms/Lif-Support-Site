@@ -3,6 +3,7 @@ import "./globals.css";
 import ClarityScript from "@/components/global/clairity/clairity";
 import NextTopLoader from 'nextjs-toploader';
 import Footer from "@/components/global/footer/footer";
+import CookieBanner from "@/components/global/cookie banner/cookie_banner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,6 +20,7 @@ export default function RootLayout({ children }) {
         showSpinner={false}
       />
       <body className={inter.className}>{children}</body>
+      <CookieBanner />
       <Footer />
     </html>
   );
