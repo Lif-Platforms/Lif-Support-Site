@@ -34,7 +34,7 @@ export default async function ViewPostPage({ params }) {
     }
 
     // Fetch post from server
-    const response = await fetch(`${process.env.REACT_APP_SUPPORT_URL}/load_post/${params.post_id}`, {
+    const response = await fetch(`${process.env.REACT_APP_SUPPORT_URL_SERVER}/load_post/${params.post_id}`, {
         cache: 'no-cache'
     });
 
@@ -50,22 +50,18 @@ export default async function ViewPostPage({ params }) {
         if (post.Title === format_client_title) {
             return (
                 <div className={styles.post_view_container}>
-                    <NavBar username={username} auth_url={process.env.REACT_APP_AUTH_URL} />
+                    <NavBar username={username} auth_url={process.env.REACT_APP_AUTH_URL_CLIENT} />
                     <Post 
                         title={post.Title}
                         content={post.Content}
                         author={post.Author}
                         software={post.Software}
                         date={post.Date}
-                        auth_url={process.env.REACT_APP_AUTH_URL}
                         current_user={username}
                         token={token}
                         post_id={params.post_id}
-                        support_url={process.env.REACT_APP_SUPPORT_URL}
                     />
                     <Comments
-                        auth_url={process.env.REACT_APP_AUTH_URL}
-                        support_url={process.env.REACT_APP_SUPPORT_URL}
                         post_id={params.post_id}
                     />
                 </div>
