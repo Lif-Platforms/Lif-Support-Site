@@ -1,0 +1,127 @@
+@keyframes cookie_animation {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.cookie_banner {
+    background-color: white;
+    border-radius: 0.5em;
+    border: 1px solid black;
+    position: fixed;
+    left: 40px;
+    bottom: 40px;
+    display: flex;
+    animation: cookie_animation 0.2s ease-in-out;
+}
+
+.cookie_icon {
+    display: block;
+    margin: auto;
+    padding: 15px;
+}
+
+.cookie_icon img {
+    width: 70px;
+    height: 70px;
+}
+
+.cookie_text {
+    font-family: Inter;
+    margin: auto;
+    width: 100%;
+    max-width: 500px;
+}
+
+.cookie_text h1 {
+    margin: 5px 0;
+    font-size: 32px;
+}
+
+.cookie_text p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.ok_button {
+    padding: 15px;
+}
+
+.ok_button button {
+    height: 100%;
+    width: max-content;
+    border-radius: 0.5em;
+    background-color: #DCECFF;
+    border: none;
+    width: 150px;
+    font-size: 30px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.ok_button button:hover {
+    opacity: 0.5;
+}
+
+@media screen and (max-width: 900px) {
+    .cookie_banner {
+        left: auto;
+        right: auto;
+        margin: 0 20px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .cookie_text h1 {
+        font-size: 22px;
+    }
+
+    .cookie_text p {
+        font-size: 10px;
+    }
+
+    .cookie_icon img {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .ok_button {
+        padding: 20px 15px;
+    }
+
+    .ok_button button {
+        font-size: 20px;
+        width: 100px;
+    }
+
+    .cookie_icon img {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media screen and (max-width: 430px) {
+    .cookie_text h1 {
+        font-size: 19px;
+    }
+
+    .cookie_text p {
+        font-size: 8px;
+    }
+
+    .ok_button button {
+        font-size: 15px;
+    }
+
+    .cookie_icon img {
+        width: 30px;
+        height: 30px;
+    }
+}
