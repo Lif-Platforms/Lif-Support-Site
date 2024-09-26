@@ -19,7 +19,7 @@ export default function Post({
         <div style={{width: '100%', boxSizing: 'border-box'}}>
             <div className={styles.content_container}>
                 <div>
-                    <img src={`${process.env.REACT_APP_AUTH_URL_CLIENT}/get_pfp/${author}.png`} alt="" className={styles.post_author_img} />
+                    <img src={`${process.env.NEXT_PUBLIC_AUTH_URL}/get_pfp/${author}.png`} alt="" className={styles.post_author_img} />
                     <span className={styles.post_author}>{author}</span>
                 </div>
                 <div style={{width: '100%', boxSizing: 'border-box'}}>
@@ -33,11 +33,9 @@ export default function Post({
                 current_user={current_user}
                 post_author={author} token={token}
                 post_id={post_id}
-                support_url={process.env.REACT_APP_SUPPORT_URL_CLIENT}
                 post_title={title}
                 post_content={content}
                 post_software={software}
-                auth_url={process.env.REACT_APP_AUTH_URL_CLIENT}
             />
         </div>
     )

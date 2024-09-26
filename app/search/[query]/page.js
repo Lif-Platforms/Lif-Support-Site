@@ -26,7 +26,7 @@ export default async function SearchPage({ params, searchParams }) {
     const query = params.query;
     const format_query = query.replaceAll("%20", " ");
 
-    let search_url = `${process.env.REACT_APP_SUPPORT_URL_SERVER}/search/${format_query}`;
+    let search_url = `${process.env.SUPPORT_URL}/search/${format_query}`;
 
     // Get search filters
     const query_params = searchParams;
@@ -50,7 +50,7 @@ export default async function SearchPage({ params, searchParams }) {
 
     return (
         <div className={styles.search_page}>
-            <NavBar auth_url={process.env.REACT_APP_AUTH_URL_CLIENT} username={username} />
+            <NavBar username={username} />
             <h1 className={styles.search_query}>Search Results For: &#34;{format_query}&#34;</h1>
             <Filters search={format_query} />
             <div className={styles.results}>

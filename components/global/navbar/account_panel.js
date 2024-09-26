@@ -1,13 +1,12 @@
 'use client'
 
 import styles from './account_panel.module.css';
-import Image from 'next/image';
 import Link from 'next/link';
 
-export default function AccountPanel({ auth_url, username, panel_open}) {
+export default function AccountPanel({ username, panel_open}) {
 
     function handle_log_out() {
-        fetch(`${auth_url}/auth/logout`)
+        fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}/auth/logout`)
         .then((response) => {
             if (response.ok) {
                 window.location.reload();
@@ -24,7 +23,7 @@ export default function AccountPanel({ auth_url, username, panel_open}) {
         return (
             <div className={styles.account_panel}>
                 <div className={styles.header}>
-                    <img src={`${auth_url}/profile/get_avatar/${username}.png`} alt="" />
+                    <img src={`${process.env.NEXT_PUBLIC_AUTH_URL}/profile/get_avatar/${username}.png`} alt="" />
                     <h1>{username}</h1>
                 </div>
                 <hr />
@@ -36,7 +35,7 @@ export default function AccountPanel({ auth_url, username, panel_open}) {
         return (
             <div className={styles.account_panel}>
                 <div className={styles.header}>
-                    <img src={`${auth_url}/profile/get_avatar/${username}.png`} alt="" />
+                    <img src={`${process.env.NEXT_PUBLIC_AUTH_URL}/profile/get_avatar/${username}.png`} alt="" />
                     <h1>Guest</h1>
                 </div>
                 <hr />
