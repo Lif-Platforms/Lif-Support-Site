@@ -34,7 +34,7 @@ export default async function ViewPostPage({ params }) {
     }
 
     // Fetch post from server
-    const response = await fetch(`${process.env.REACT_APP_SUPPORT_URL_SERVER}/load_post/${params.post_id}`, {
+    const response = await fetch(`${process.env.SUPPORT_URL}/load_post/${params.post_id}`, {
         cache: 'no-cache'
     });
 
@@ -50,7 +50,7 @@ export default async function ViewPostPage({ params }) {
         if (post.Title === format_client_title) {
             return (
                 <div className={styles.post_view_container}>
-                    <NavBar username={username} auth_url={process.env.REACT_APP_AUTH_URL_CLIENT} />
+                    <NavBar username={username} />
                     <Post 
                         title={post.Title}
                         content={post.Content}
@@ -72,7 +72,7 @@ export default async function ViewPostPage({ params }) {
     } else if (response.status === 404) {
         return (
             <div className={styles.not_found}>
-                <NavBar username={username.value} auth_url={process.env.REACT_APP_AUTH_URL} />
+                <NavBar username={username.value} />
                 <Image className={styles.img} src="/post_viewer/not_found.png" alt="" width={100} height={100} />
                 <h1 className={styles.title}>Page Not Found!</h1>
                 <p className={styles.message}>The page you requested could not be found.</p>

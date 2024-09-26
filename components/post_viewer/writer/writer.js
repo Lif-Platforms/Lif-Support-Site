@@ -9,7 +9,6 @@ export default function Writer({
     current_user, 
     token, 
     post_id,
-    support_url,
     post_title,
     post_content,
     post_software
@@ -36,7 +35,7 @@ export default function Writer({
         const formData = new FormData(replyForm.current);
 
         // Make request to server
-        fetch(`${support_url}/create_reply/${type}/${post_id}`, {
+        fetch(`${process.env.NEXT_PUBLIC_SUPPORT_URL}/create_reply/${type}/${post_id}`, {
             method: "POST",
             headers: {
                 username: current_user,
@@ -71,7 +70,7 @@ export default function Writer({
         const formData = new FormData(editPostForm.current);
 
         // Make edit request to server
-        fetch(`${support_url}/edit_post/${post_id}`, {
+        fetch(`${process.env.NEXT_PUBLIC_SUPPORT_URL}/edit_post/${post_id}`, {
             method: "PUT",
             headers: {
                 username: current_user,

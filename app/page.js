@@ -23,7 +23,7 @@ export default async function Home() {
   }
 
   // Get recent posts
-  const response = await fetch(`${process.env.REACT_APP_SUPPORT_URL_SERVER}/load_recent_posts`);
+  const response = await fetch(`${process.env.SUPPORT_URL}/load_recent_posts`);
 
   let posts;
 
@@ -36,7 +36,7 @@ export default async function Home() {
 
   return (
     <main>
-      <NavBar auth_url={process.env.REACT_APP_AUTH_URL_CLIENT} username={username} />
+      <NavBar username={username} />
       <Title />
       <div className={styles.recent_posts}>
         <h1>Recent Posts:</h1>

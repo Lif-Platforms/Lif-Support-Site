@@ -10,11 +10,9 @@ export default function ControlsContainer({
     current_user,
     token,
     post_id,
-    support_url,
     post_title,
     post_content,
     post_software,
-    auth_url
 }) {
     const [writerState, setWriterState] = useState(null);
     const [showDeletePostPopup, setShowDeletePostPopup] = useState(false);
@@ -28,7 +26,7 @@ export default function ControlsContainer({
         formData.append("username", current_user);
         formData.append("token", token);
 
-        fetch(`${auth_url}/auth/verify_token`, {
+        fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}/auth/verify_token`, {
             method: "POST",
             body: formData,
             cache: 'no-cache'
@@ -60,7 +58,6 @@ export default function ControlsContainer({
                     current_user={current_user}
                     token={token}
                     post_id={post_id}
-                    support_url={support_url}
                     post_title={post_title}
                     post_content={post_content}
                     post_software={post_software}
@@ -71,7 +68,6 @@ export default function ControlsContainer({
                     current_user={current_user}
                     token={token}
                     post_id={post_id}
-                    support_url={support_url}
                 />
             </div>
         )

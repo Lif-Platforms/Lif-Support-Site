@@ -37,7 +37,7 @@ export default async function NewPostPage() {
     formData.append('token', token);
 
     // Verify user is logged in
-    const response = await fetch(`${process.env.REACT_APP_AUTH_URL_SERVER}/auth/verify_token`, {
+    const response = await fetch(`${process.env.AUTH_URL}/auth/verify_token`, {
         method: "POST",
         body: formData
     })
@@ -45,18 +45,17 @@ export default async function NewPostPage() {
     if (response.ok) {
         return (
             <div>
-                <NavBar username={username} auth_url={process.env.REACT_APP_AUTH_URL_CLIENT} />
+                <NavBar username={username} />
                 <div className={styles.title}>
                     <h1>New Post</h1>
                     <p>What do you need help with?</p>
                 </div>
                 <div className={styles.post_container}>
                     <div className={styles.avatar}>
-                        <img src={`${process.env.REACT_APP_AUTH_URL_CLIENT}/profile/get_avatar/${username}.png`} alt="" />
+                        <img src={`${process.env.NEXT_PUBLIC_AUTH_URL}/profile/get_avatar/${username}.png`} alt="" />
                     </div>
                     <div className={styles.post_form}>
-                        <PostBody 
-                            support_url={process.env.REACT_APP_SUPPORT_URL_CLIENT}
+                        <PostBody
                             username={username}
                             token={token}
                         />

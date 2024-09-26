@@ -7,7 +7,7 @@ import AccountPanel from './account_panel';
 import { useState } from 'react';
 import { useRouter } from 'nextjs-toploader/app';
 
-export default function NavBar({ username, auth_url }) {
+export default function NavBar({ username }) {
     const [panelOpen, setPanelOpen] = useState(false);
 
     function handle_account_panel() {
@@ -34,9 +34,9 @@ export default function NavBar({ username, auth_url }) {
             <div className={styles.account_button}>
                 {/* eslint-disable-next-line */}
                 <a onClick={handle_account_panel}>
-                    <img src={`${auth_url}/profile/get_avatar/${username}.png`} alt="" />
+                    <img src={`${process.env.NEXT_PUBLIC_AUTH_URL}/profile/get_avatar/${username}.png`} alt="" />
                 </a>
-                <AccountPanel auth_url={auth_url} username={username} panel_open={panelOpen} />
+                <AccountPanel username={username} panel_open={panelOpen} />
             </div>
         </div>
     )

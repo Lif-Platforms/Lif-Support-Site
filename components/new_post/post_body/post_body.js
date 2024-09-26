@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import styles from "./post_body.module.css";
 import { useRouter } from "nextjs-toploader/app";
 
-export default function PostBody({ support_url, username, token }) {
+export default function PostBody({ username, token }) {
     const postTitleInput = useRef();
     const postStatus = useRef();
     const postSubmitButton = useRef();
@@ -30,7 +30,7 @@ export default function PostBody({ support_url, username, token }) {
         // Create formData for request
         const formData = new FormData(event.target);
 
-        fetch(`${support_url}/new_post`, {
+        fetch(`${process.env.NEXT_PUBLIC_SUPPORT_URL}/new_post`, {
             method: "POST",
             headers: {
                 username: username,

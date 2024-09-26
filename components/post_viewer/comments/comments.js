@@ -3,7 +3,7 @@ import styles from "./comments.module.css";
 
 export default async function Comments({ post_id }) {
     // Load comments from server
-    const response = await fetch(`${process.env.REACT_APP_SUPPORT_URL_SERVER}/load_comments/${post_id}`);
+    const response = await fetch(`${process.env.SUPPORT_URL}/load_comments/${post_id}`);
 
     if (response.ok) {
         const comments = await response.json();
@@ -15,7 +15,7 @@ export default async function Comments({ post_id }) {
                     {comments.map(item => (
                         (item.Type === "Comment" ? 
                             <div key={item.Id} className={styles.comment}>
-                                <img src={`${process.env.REACT_APP_AUTH_URL_CLIENT}/get_pfp/${item.Author}.png`} alt="" />
+                                <img src={`${process.env.NEXT_PUBLIC_AUTH_URL}/get_pfp/${item.Author}.png`} alt="" />
                                 <div>
                                     <h1>{item.Author}</h1>
                                     <p>{item.Content}</p>

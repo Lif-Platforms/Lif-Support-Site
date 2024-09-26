@@ -11,7 +11,6 @@ export default function DeletePostPopup({
     current_user,
     token,
     post_id,
-    support_url
 }) {
     const cancelButton = useRef();
     const deleteButton = useRef();
@@ -30,7 +29,7 @@ export default function DeletePostPopup({
 
         deleteStatus.current.innerHTML = "";
 
-        fetch(`${support_url}/delete_post/${post_id}`, {
+        fetch(`${process.env.NEXT_PUBLIC_SUPPORT_URL}/delete_post/${post_id}`, {
             method: "DELETE",
             headers: {
                 username: current_user,
