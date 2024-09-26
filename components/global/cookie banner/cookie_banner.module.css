@@ -20,6 +20,14 @@
     animation: cookie_animation 0.2s ease-in-out;
 }
 
+.cookie_banner h1 {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.cookie_banner p {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 .cookie_icon {
     display: block;
     margin: auto;
