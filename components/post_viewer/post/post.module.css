@@ -16,6 +16,7 @@
     word-wrap: break-word; /* Legacy */
     overflow-wrap: break-word; /* Standard */
     word-break: break-word; /* Break long words */
+    white-space: pre-line;
 }
 
 .post_content h1 {

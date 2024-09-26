@@ -24,7 +24,7 @@ export default function Post({
                 </div>
                 <div style={{width: '100%', boxSizing: 'border-box'}}>
                     <h1 className={styles.post_title}>{title}</h1>
-                    <ReactMarkdown className={styles.post_content} allowedElements={allowed_elements} style={{ whiteSpace: 'pre-line' }}>{content}</ReactMarkdown>
+                    <ReactMarkdown className={styles.post_content} allowedElements={allowed_elements}>{content}</ReactMarkdown>
                     <span className="post-date">Posted: {date ? date : "Not Available"}</span>
                     <span className={software === "Ringer" ? styles.ringer_software : software === "Dayly" ? styles.dayly_software : styles.software}>{software}</span>
                 </div>
