@@ -19,7 +19,7 @@ export default function Post({
         <div style={{width: '100%', boxSizing: 'border-box'}}>
             <div className={styles.content_container}>
                 <div>
-                    <img src={`${process.env.NEXT_PUBLIC_AUTH_URL}/get_pfp/${author}.png`} alt="" className={styles.post_author_img} />
+                    <img src={`${process.env.NEXT_PUBLIC_AUTH_URL}/profile/v1/get_avatar/${author}.png`} alt="" className={styles.post_author_img} />
                     <span className={styles.post_author}>{author}</span>
                 </div>
                 <div style={{width: '100%', boxSizing: 'border-box'}}>

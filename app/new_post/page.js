@@ -52,7 +52,7 @@ export default async function NewPostPage() {
                 </div>
                 <div className={styles.post_container}>
                     <div className={styles.avatar}>
-                        <img src={`${process.env.NEXT_PUBLIC_AUTH_URL}/profile/get_avatar/${username}.png`} alt="" />
+                        <img src={`${process.env.NEXT_PUBLIC_AUTH_URL}/profile/v1/get_avatar/${username}.png`} alt="" />
                     </div>
                     <div className={styles.post_form}>
                         <PostBody
