@@ -23,7 +23,7 @@ export default function AccountPanel({ username, panel_open}) {
         return (
             <div className={styles.account_panel}>
                 <div className={styles.header}>
-                    <img src={`${process.env.NEXT_PUBLIC_AUTH_URL}/profile/get_avatar/${username}.png`} alt="" />
+                    <img src={`${process.env.NEXT_PUBLIC_AUTH_URL}/profile/v1/get_avatar/${username}.png`} alt="" />
                     <h1>{username}</h1>
                 </div>
                 <hr />
@@ -39,7 +39,7 @@ export default function AccountPanel({ username, panel_open}) {
                     <h1>Guest</h1>
                 </div>
                 <hr />
-                <Link href="https://my.lifplatforms.com/#/login?redirect=https://support.lifplatforms.com">Sign In</Link>
+                <Link href="https://my.lifplatforms.com/login?redirect=https://support.lifplatforms.com">Sign In</Link>
             </div>
         );
     } else {
