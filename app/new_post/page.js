@@ -64,6 +64,6 @@ export default async function NewPostPage() {
             </div>
         )
     } else {
-        redirect("https://my.lifplatforms.com/#/login?redirect=https://support.lifplatforms.com/new_post");
+        redirect("https://my.lifplatforms.com/login?redirect=https://support.lifplatforms.com/new_post");
     }   
 }
