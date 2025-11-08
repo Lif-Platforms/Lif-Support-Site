@@ -6,17 +6,7 @@ import Link from 'next/link';
 export default function AccountPanel({ username, panel_open}) {
 
     function handle_log_out() {
-        fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}/auth/logout`)
-        .then((response) => {
-            if (response.ok) {
-                window.location.reload();
-            } else {
-                throw new Error('Request failed with status code: ' + response.status);
-            }
-        })
-        .catch((err) => {
-            console.error(err);
-        })
+        window.location.href = "https://api.auth.lifplatforms.com/auth/v1/logout?redirect=https://support.lifplatforms.com"
     }
 
     if (panel_open && username !== null) {
@@ -35,7 +25,7 @@ export default function AccountPanel({ username, panel_open}) {
         return (
             <div className={styles.account_panel}>
                 <div className={styles.header}>
-                    <img src={`${process.env.NEXT_PUBLIC_AUTH_URL}/profile/get_avatar/${username}.png`} alt="" />
+                    <img src={`${process.env.NEXT_PUBLIC_AUTH_URL}/profile/v1/get_avatar/${username}.png`} alt="" />
                     <h1>Guest</h1>
                 </div>
                 <hr />
