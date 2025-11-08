@@ -15,7 +15,7 @@ export default async function Comments({ post_id }) {
                     {comments.map(item => (
                         (item.Type === "Comment" ? 
                             <div key={item.Id} className={styles.comment}>
-                                <img src={`${process.env.NEXT_PUBLIC_AUTH_URL}/get_pfp/${item.Author}.png`} alt="" />
+                                <img src={`${process.env.NEXT_PUBLIC_AUTH_URL}/profile/v1/get_avatar/${item.Author}.png`} alt="" />
                                 <div>
                                     <h1>{item.Author}</h1>
                                     <p>{item.Content}</p>
